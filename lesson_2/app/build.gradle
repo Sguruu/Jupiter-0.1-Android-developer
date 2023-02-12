@@ -1,22 +1,31 @@
+// Применение плагинов
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
 
+// Тут указываются общие настройке сборки модуля .app
 android {
     namespace 'com.weather.lession2jupiter'
-    compileSdk 32
+    // Уровень апи в котором было скомпилированно приложение
+    compileSdk 33
 
     defaultConfig {
+        // Индификатор приложения или пакет приложения
         applicationId "com.weather.lession2jupiter"
+        // Минимальная версия Api при котором будет работать приложение
         minSdk 21
-        targetSdk 32
+        // Целевая версия апи на которую мы ориентировались при разработки
+        targetSdk 33
+        // Код версии
         versionCode 1
+        // Название версии для пользователя
         versionName "1.0"
-
+        // Инструмент запускающий тесты
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    // объявляет типы сборок
     buildTypes {
         release {
             minifyEnabled false
@@ -32,6 +41,7 @@ android {
     }
 }
 
+// Тут подключаеются все библиотеки которые используются в Android приложении, которые будут выкчены из репозитории при синхранихации Gradleю
 dependencies {
 
     implementation 'androidx.core:core-ktx:1.7.0'

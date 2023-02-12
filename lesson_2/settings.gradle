@@ -1,10 +1,13 @@
 pluginManagement {
+    // подключаеются необходимые зависимости для системы сборки
     repositories {
         gradlePluginPortal()
         google()
         mavenCentral()
     }
 }
+
+// Тут указываем раздел где находятся наши зависимости, они назыываются репозиториями
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
