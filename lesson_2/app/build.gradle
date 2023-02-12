@@ -23,15 +23,70 @@ android {
         versionName "1.0"
         // Инструмент запускающий тесты
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // для того, чтобы была возможность собирать релизную сборку
+        // (определение подписи приложения)
+        signingConfig signingConfigs.debug
     }
+
 
     // объявляет типы сборок
     buildTypes {
+        debug {
+            // суффикс который будет добавлен в конце основного applicationId в нашем варианте
+            // пример : com.weather.lession2jupiter.debug
+            applicationIdSuffix ".debug"
+            manifestPlaceholders = [appName: "Debuglesson2"]
+        }
+
+        // test написать не можем т.к. это слово зарезервировано для автоматических тестов
+        qa {
+            // наследование настроект debug
+            initWith debug
+            // меняем имя приложения в зависимсоти от сборки
+            manifestPlaceholders = [appName: "Qalesson2"]
+            applicationIdSuffix ".qa"
+        }
+
         release {
+            applicationIdSuffix ".release"
+            // настройки минификации сборки
             minifyEnabled false
+            manifestPlaceholders = [appName: "Releaselesson2"]
+            /*
+            утилита, которая удаляет из готового кода неиспользуемые фрагменты и изменяет имена
+            переменных и методов для усложнения реверс-инжиниринга приложения. Также позволяет
+            уменьшить размер загружаемых на устройство файлов.
+             */
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    // создание групп флеворов
+    flavorDimensions "payment"
+
+    // описание флейворов
+    productFlavors {
+        paid {
+            applicationIdSuffix ".paid"
+            versionNameSuffix "paid"
+            // указываем к какому типу относится приложение
+            dimension "payment"
+
+            // плантная версия только с 28 апи
+            minSdk 28
+        }
+
+        free {
+            versionCode = android.defaultConfig.versionCode + 100
+            applicationIdSuffix ".free"
+            versionNameSuffix "free"
+            dimension "payment"
+
+        }
+
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
