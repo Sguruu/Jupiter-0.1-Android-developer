@@ -4,7 +4,7 @@
     name="main_name_value"  - имя переменной по которой мы можем к ней обращаться
     Name string value - значение переменной
     -->
-    <string name="main_name_value">Name string value</string>
+    <string name="main_name_value">Дневной режим</string>
 
     <!--
     plurals - множетсвенное значение
