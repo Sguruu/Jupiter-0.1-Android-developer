@@ -2,6 +2,11 @@
     <!-- Base application theme. -->
     <style name="Theme.Lesson3" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
+        <!--
+        colorPrimary - Будет установлен в верхнем тулбаре
+        colorPrimaryVariant - Цвет в стутс баре
+        colorSecondary - установлен для базовых элементов, кнопок чек-боксов и так далее
+        -->
         <item name="colorPrimary">@color/purple_500</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
         <item name="colorOnPrimary">@color/white</item>
@@ -12,5 +17,12 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
+
+        <!--
+        windowBackground - цвет фона приложения
+        textColor - цвет текста приложения
+        -->
+        <item name="android:windowBackground">@color/colorBackground</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 </resources>
