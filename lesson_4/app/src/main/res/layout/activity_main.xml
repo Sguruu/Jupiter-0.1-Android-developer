@@ -4,6 +4,15 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <!--
+     scaleType - для растяжения изображения
+     -->
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/saturn" />
+
     <EditText
         android:id="@+id/nameInput"
         android:layout_width="match_parent"
@@ -25,8 +34,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/clear_text"
-        android:enabled="false"/>
+        android:enabled="false"
+        android:text="@string/clear_text" />
+
+    <Button
+        android:id="@+id/makeLongOperationButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/make_long_operation" />
+
+    <ProgressBar
+        android:id="@+id/longOperationProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"/>
 </LinearLayout>
 
 

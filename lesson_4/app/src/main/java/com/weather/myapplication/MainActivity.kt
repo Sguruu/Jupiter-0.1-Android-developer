@@ -1,10 +1,14 @@
 package com.weather.myapplication
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -15,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     lateinit var textView: TextView
     lateinit var nameInput: EditText
     lateinit var clearButton: Button
+    lateinit var makeLongOperationBotton: Button
+    lateinit var progressBar: ProgressBar
 
     // переопределение метода onCreate который запускается когда создается активность
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +32,8 @@ class MainActivity : AppCompatActivity() {
         textView = findViewById(R.id.textView)
         nameInput = findViewById(R.id.nameInput)
         clearButton = findViewById(R.id.clearButton)
+        makeLongOperationBotton = findViewById(R.id.makeLongOperationButton)
+        progressBar = findViewById(R.id.longOperationProgress)
 
         // слушатель ввода
         nameInput.addTextChangedListener(object : TextWatcher {
@@ -65,5 +73,29 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, resources.getString(R.string.cleared_text), Toast.LENGTH_SHORT)
                 .show()
         }
+
+        makeLongOperationBotton.setOnClickListener {
+            makeLongOperation()
+        }
+    }
+
+    private fun makeLongOperation() {
+        // сделать видимой
+        progressBar.visibility = View.VISIBLE
+        // блокируем кнопку
+        makeLongOperationBotton.isEnabled = false
+
+        // подождем две секунды
+        // более подробно о классе Handler позже
+        Handler(Looper.getMainLooper()).postDelayed({
+            progressBar.visibility = View.GONE
+            makeLongOperationBotton.isEnabled = true
+            Toast.makeText(
+                this,
+                resources.getString(R.string.long_operation_complete),
+                Toast.LENGTH_SHORT
+            )
+                .show()
+        }, 2000)
     }
 }
