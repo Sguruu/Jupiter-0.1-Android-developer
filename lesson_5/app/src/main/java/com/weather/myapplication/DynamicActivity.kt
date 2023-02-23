@@ -1,13 +1,11 @@
 package com.weather.myapplication
 
 import android.os.Bundle
-import android.view.Gravity
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlin.random.Random
 
 class DynamicActivity : AppCompatActivity() {
 
@@ -23,31 +21,28 @@ class DynamicActivity : AppCompatActivity() {
 
         addButton.setOnClickListener {
             val textAdd = textInput.text.toString()
-            // Для создания TextView, нужно будет использовать конструктор, конструктор небоходимо
-            // добавить контекст, но также можно добавлять доп атрибуты и стили, о них поговорим по позже
-            // apply функция это лямбда которая применяестя сразу к созданному объекту
-            val textViewToAdd = TextView(this).apply {
-                // указали текст
-                this.text = textAdd
-                // даллее необходимо создать размер view используя LayoutParams
-                /*
-                Здесь можно указать различные атрибуты, ширину, высоту, все элемента, давайте добавим
-                ширину и высоту элемента равный wrap_content
-                 */
-                this.layoutParams = LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.WRAP_CONTENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT
-                ).apply {
-                    this.gravity = when (Random.nextInt(3)) {
-                        0 -> Gravity.CENTER
-                        1 -> Gravity.END
-                        else -> Gravity.START
-                    }
+            // создает view из ресурса разметки
+            /*
+            Парамертры :
+            1. View которую нужно использовать
+            2. Родительская View
+            3. Нужно ли нам добавить нашу view в разметку сразу
+            true - добавление автоматически в контейнер,
+            false - добавление в ручную
+            Также, если будет указан true, возвращает контейнер куда будет встраиваться view,
+            Также, если будет указано false, вернет именно наш контейнер
+            Укажем false так как нужно еще указать текст для только-что созданной view
+             */
+            val view = layoutInflater.inflate(R.layout.item_text, rootLinearLayout, false)
+            view.apply {
+                val textView = findViewById<TextView>(R.id.textView)
+                val deleteButton = findViewById<Button>(R.id.deleteButton)
+                textView.text = textAdd
+                deleteButton.setOnClickListener {
+                    rootLinearLayout.removeView(this)
                 }
             }
-
-            // метод который добавляет view в нашу viewGroup
-            rootLinearLayout.addView(textViewToAdd)
+            rootLinearLayout.addView(view)
         }
     }
 
