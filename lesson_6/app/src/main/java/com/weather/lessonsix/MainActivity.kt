@@ -1,8 +1,8 @@
 package com.weather.lessonsix
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import com.weather.lessonsix.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -14,9 +14,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.button.setOnClickListener {
-            Toast.makeText(this, resources.getString(R.string.text_example), Toast.LENGTH_SHORT)
-                .show()
+        binding.toggleLastNameButton.setOnClickListener {
+            binding.lastName.isVisible = !binding.lastName.isVisible
         }
     }
 }
