@@ -9,20 +9,13 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
+        style="@style/ToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        android:background="@color/custom_color"
-        android:elevation="8dp"
-        app:logo="@drawable/ic_launcher_background"
-        app:title="@string/app_name"
         app:navigationIcon="@drawable/ic_arrow_back"
-        app:titleTextColor="@color/white">
-
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            app:srcCompat="@drawable/ic_launcher_background" />
-
-    </androidx.appcompat.widget.Toolbar>
+        app:title="@string/app_name"
+        app:menu="@menu/menu_toolbar"
+        app:popupTheme="@style/ToolbarTheme"
+        />
 
 </LinearLayout>

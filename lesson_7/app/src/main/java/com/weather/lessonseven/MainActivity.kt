@@ -19,5 +19,26 @@ class MainActivity : AppCompatActivity() {
         binding.toolbar.setNavigationOnClickListener {
             Toast.makeText(this, "Стрелка назад нажата", Toast.LENGTH_SHORT).show()
         }
+
+        binding.toolbar.setOnMenuItemClickListener {
+            // через it можем получить доступ ко всем элементам меню и их атрибутам
+            // получаем id элемента по которому кликнули  it.itemId
+            when (it.itemId) {
+                R.id.action_1 -> {
+                    // означает что мы отработали нажатие на элемент меню
+                    toast("action 1 clicked")
+                    true
+                }
+                R.id.action_2 -> {
+                    toast("action 2 clicked")
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
+    private fun toast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
