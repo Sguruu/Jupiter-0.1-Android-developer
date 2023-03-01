@@ -2,6 +2,7 @@ package com.weather.lessonseven
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.lessonseven.databinding.ActivityMainBinding
@@ -9,6 +10,12 @@ import com.weather.lessonseven.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+
+    private val users = listOf(
+        "User1",
+        "User2",
+        "Unknown"
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,6 +66,26 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         })
+
+        // кастим (приводим) тип и вызываем у него слушатель
+        (searchItem.actionView as SearchView).setOnQueryTextListener(object :
+                SearchView.OnQueryTextListener {
+                // Вызвается тогда, когда пользователь нажимает на значек поиска
+                override fun onQueryTextSubmit(p0: String?): Boolean {
+                    return true
+                }
+
+                // Вызывается тогда, когда пользователь что-то вводит
+                override fun onQueryTextChange(p0: String?): Boolean {
+                    users.filter { it.contains(p0 ?: "", ignoreCase = true) }
+                        // все отфилтрованные строки объединяться в одну строку
+                        .joinToString()
+                        .let {
+                            binding.searchResultTextView.text = it
+                        }
+                    return true
+                }
+            })
     }
 
     private fun toast(text: String) {

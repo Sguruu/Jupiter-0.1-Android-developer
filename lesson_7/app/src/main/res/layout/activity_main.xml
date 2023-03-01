@@ -26,4 +26,13 @@
         android:textColor="@color/black"
         tools:text="erw" />
 
+    <TextView
+        android:id="@+id/searchResultTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        tools:text="Результат поиска" />
+
 </LinearLayout>
