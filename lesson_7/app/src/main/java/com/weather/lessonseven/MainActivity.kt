@@ -1,6 +1,7 @@
 package com.weather.lessonseven
 
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.lessonseven.databinding.ActivityMainBinding
@@ -13,7 +14,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initToolbar()
+    }
 
+    private fun initToolbar() {
         binding.toolbar.title = "Новый текст из кода"
 
         binding.toolbar.setNavigationOnClickListener {
@@ -36,6 +40,25 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+
+        // получение доступа к элементу меню
+        val searchItem = binding.toolbar.menu.findItem(R.id.action_search)
+
+        // повесим слушатель (он опеващается когда у нас появляет search view и закрывается)
+        searchItem.setOnActionExpandListener(object : MenuItem.OnActionExpandListener {
+            // вызывается когда нажал на кнопку поиска
+            override fun onMenuItemActionExpand(p0: MenuItem): Boolean {
+                binding.expandTextView.text = "search expanded"
+                // это означет что функция отработала и view будет раскрыта
+                return true
+            }
+
+            // когда пользователь нажал на закрытие евента и search view превратилась в иконку пользователя
+            override fun onMenuItemActionCollapse(p0: MenuItem): Boolean {
+                binding.expandTextView.text = "search collapsed"
+                return true
+            }
+        })
     }
 
     private fun toast(text: String) {

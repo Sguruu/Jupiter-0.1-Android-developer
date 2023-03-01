@@ -9,7 +9,7 @@
     </style>
 
 
-    <style name="ToolbarTheme" >
+    <style name="ToolbarTheme"  parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="toolbarNavigationButtonStyle">@style/ToolbarNavigationStyle</item>
         <item name="android:textColorSecondary">@color/white</item>
     </style>

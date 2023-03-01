@@ -12,10 +12,18 @@
         style="@style/ToolbarStyle"
         android:layout_width="match_parent"
         android:layout_height="?actionBarSize"
-        app:navigationIcon="@drawable/ic_arrow_back"
-        app:title="@string/app_name"
         app:menu="@menu/menu_toolbar"
+        app:navigationIcon="@drawable/ic_arrow_back"
         app:popupTheme="@style/ToolbarTheme"
-        />
+        app:title="@string/app_name" />
+
+    <TextView
+        android:id="@+id/expandTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        tools:text="erw" />
 
 </LinearLayout>

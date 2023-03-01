@@ -11,5 +11,13 @@
         android:title="@string/action_2"
         app:iconTint="@color/white"
         app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/action_search"
+        android:icon="@drawable/ic_search"
+        android:iconTint="@color/white"
+        android:title="@string/action_search"
+        app:actionViewClass="android.widget.SearchView"
+        app:iconTint="@color/white"
+        app:showAsAction="ifRoom|collapseActionView" />
 
 </menu>
