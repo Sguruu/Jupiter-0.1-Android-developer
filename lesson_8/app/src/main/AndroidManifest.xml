@@ -12,9 +12,50 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lesson8"
         tools:targetApi="31">
+        <!--
+                 android:name=".MainActivity" - указывает на имя класса
+
+                 android:exported="true" - Атрибут android:exported="true" сообщает получателю, что
+                 он может принимать широковещательные сообщения вне области приложения. Внутри
+                 секции указывается фильтр намерений в виде строки, чтобы определить, какие
+                 сообщения приёмник должен прослушивать. (или проще может ли активити быть запущено
+                 из другого приложения true - может быть запушена из вне
+                 если false то не может запустить из других приложений
+
+                 android:theme="@style/Theme.AppCompat" - ресурс темы для конкретной активности
+
+                  android:icon="@drawable/ic_launcher_foreground" - можно указать иконку для конкретной
+                  активности
+
+                   android:label="Custom label" - названия приложения для конкретной точки входа
+
+                   intent-filter - обозначает для каких действий подходит активность, в данном случае
+                   фильтр означает, что иконка активности должна отражаться в лаунчере
+
+                    атрибут android.screenOrientation. Этот атрибут указывает, в каких ориентациях
+                    может работать ваш экран
+        -->
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:icon="@drawable/ic_launcher_foreground"
+            android:label="Custom label"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+
+        <activity
+            android:name=".MainActivity2"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,5 +67,6 @@
                 android:value="" />
         </activity>
     </application>
+
 
 </manifest>
