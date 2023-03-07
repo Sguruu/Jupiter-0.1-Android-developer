@@ -18,6 +18,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        // остановка потока
+        Thread.sleep(5000)
+
 //        // логируются множнество сообщений в процессе работы приложения
 //        Log.println(Log.VERBOSE, "MyTest", "Ваше сообщение")
 //        // отладочные сообщения
