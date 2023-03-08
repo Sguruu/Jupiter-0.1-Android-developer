@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Lesson9"
         tools:targetApi="31">
+        <!-- в activity
+        android:configChanges="orientation" - который означает что смену ориентации мы будем
+        обрабатывать в ручную
+         -->
         <activity
             android:name=".MainActivity"
             android:exported="true">
