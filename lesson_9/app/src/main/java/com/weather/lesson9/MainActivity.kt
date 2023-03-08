@@ -58,8 +58,10 @@ class MainActivity : AppCompatActivity() {
              2. Тип класс
              */
             val startActivityIntent = Intent(this, SecondActivity::class.java)
+            // Передача данных в другую активность
+            startActivityIntent.putExtra(SecondActivity.KEY_MESSAGE, state.count)
             // запуск Активности
-            startActivity(intent)
+            startActivity(startActivityIntent)
         }
     }
 
