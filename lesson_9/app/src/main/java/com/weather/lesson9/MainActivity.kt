@@ -1,8 +1,9 @@
 package com.weather.lesson9
 
 import android.content.res.Configuration
+import android.os.Build
+import android.os.Build.VERSION
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.lesson9.databinding.ActivityMainBinding
 
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 
     lateinit var binding: ActivityMainBinding
 
-    private var state = 0
+    private var state = CounterState(0, "")
 
     /**
      * @param savedInstanceState если является null то активность запустилась впервые
@@ -24,19 +25,26 @@ class MainActivity : AppCompatActivity() {
 
         // Проверим что savedInstanceState не является null
         if (savedInstanceState != null) {
-            // по ключу достанем наше состояние
-            state = savedInstanceState.getInt(KEY_STATE)
+            // версия SDK
+            if (VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                // по ключу достанем наше состояние
+                state = savedInstanceState.getParcelable(KEY_STATE, CounterState::class.java)
+                    ?: error("Нет состояния")
+            } else {
+                state = savedInstanceState.getParcelable<CounterState>(KEY_STATE)
+                    ?: error("Нет состояния")
+            }
         }
 
         renderTextView()
 
         binding.buttonIncrement.setOnClickListener {
-            state++
+            state = state.increment()
             renderTextView()
         }
 
         binding.buttonDecrement.setOnClickListener {
-            state--
+            state = state.decrement()
             renderTextView()
         }
     }
@@ -54,7 +62,8 @@ class MainActivity : AppCompatActivity() {
         key - ключ
         value - значение которое мы хотим сохранить
          */
-        outState.putInt(KEY_STATE, state)
+        outState.putParcelable(KEY_STATE, state)
+        // outState.putSerializable(KEY_STATE, state)
     }
 
     /**
@@ -77,6 +86,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun renderTextView() {
-        binding.textView.text = state.toString()
+        binding.textView.text = state.count.toString()
     }
 }
