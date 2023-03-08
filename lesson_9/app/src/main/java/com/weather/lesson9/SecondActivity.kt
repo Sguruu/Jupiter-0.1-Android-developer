@@ -1,5 +1,7 @@
 package com.weather.lesson9
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.lesson9.databinding.ActivitySecondBinding
@@ -7,7 +9,12 @@ import com.weather.lesson9.databinding.ActivitySecondBinding
 class SecondActivity : AppCompatActivity() {
 
     companion object {
-        const val KEY_MESSAGE = "KEY_MESSAGE"
+        private const val KEY_MESSAGE = "KEY_MESSAGE"
+
+        fun getIntent(context: Context, state: Int): Intent {
+            return Intent(context, SecondActivity::class.java)
+                .putExtra(KEY_MESSAGE, state)
+        }
     }
 
     lateinit var binding: ActivitySecondBinding

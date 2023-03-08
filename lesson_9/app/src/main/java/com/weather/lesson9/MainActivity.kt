@@ -1,6 +1,5 @@
 package com.weather.lesson9
 
-import android.content.Intent
 import android.content.res.Configuration
 import android.os.Build
 import android.os.Build.VERSION
@@ -50,18 +49,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.buttonNextSreen.setOnClickListener {
-            /*
-             Параметры :
-             1. Контекст - контекст это класс который предоставляет доступ к систменым сервисам,
-             к ресурсам приложения, получить информацию о приложении как например packageName, используется
-             для любой работы с компонентами Android SDK, также позволяет запускать компоненты
-             2. Тип класс
-             */
-            val startActivityIntent = Intent(this, SecondActivity::class.java)
-            // Передача данных в другую активность
-            startActivityIntent.putExtra(SecondActivity.KEY_MESSAGE, state.count)
             // запуск Активности
-            startActivity(startActivityIntent)
+            startActivity(SecondActivity.getIntent(this, state.count))
         }
     }
 
