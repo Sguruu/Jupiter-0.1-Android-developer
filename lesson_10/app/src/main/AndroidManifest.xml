@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Добавим разешение для камеры-->
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -24,6 +28,24 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+        </activity>
+
+        <activity
+            android:name=".EmailActivity"
+            android:exported="true">
+            <intent-filter>
+                <!--
+                action -  дейставие которое мы хотим сделать
+                data - данные для uri об этом подробнее поговорим позже, тут нам нужно указать только
+                схему
+                category - способ запуска активности, выберем по умолчанию
+                для интент фильтров можно создавать несколько категория, а для активности можно
+                создавать несколько интент фильтров
+                -->
+                <action android:name="android.intent.action.SENDTO" />
+                <data android:scheme="mailto" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

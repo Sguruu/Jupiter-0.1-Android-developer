@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">L10</string>
+    <string name="enter_your_email">Введите свою почту</string>
+    <string name="letter_subject">Тема письма</string>
+    <string name="open_mail_client">Открыть почтовый клиент</string>
+    <string name="entered_an_invalid_email">Введен не корректный email</string>
+    <string name="take_photo">Сделать фотографию</string>
 </resources>
