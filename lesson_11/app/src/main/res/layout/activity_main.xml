@@ -16,6 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/buttonReplace"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/replace_fragment"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button" />
+
     <!--
     name - Указывает фрагмент который мы хотим отобразить
     -->
@@ -26,7 +35,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button"
+        app:layout_constraintTop_toBottomOf="@id/buttonReplace"
         tools:layout="@layout/fragment_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

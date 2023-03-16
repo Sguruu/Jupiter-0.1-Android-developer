@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Lesson 11</string>
     <string name="show_fragment">Показать фрагмент</string>
+    <string name="replace_fragment">Заменить фрагмент</string>
 </resources>

@@ -17,6 +17,10 @@ class MainActivity : AppCompatActivity() {
         binding.button.setOnClickListener {
             showInfoFragment()
         }
+
+        binding.buttonReplace.setOnClickListener {
+            replaceInfoFragment()
+        }
     }
 
     private fun showInfoFragment() {
@@ -45,5 +49,11 @@ class MainActivity : AppCompatActivity() {
         } else {
             Toast.makeText(this, "Фрагмент уже показан", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun replaceInfoFragment() {
+        supportFragmentManager.beginTransaction()
+            .replace(binding.fragment1.id, InfoFragment())
+            .commit()
     }
 }
