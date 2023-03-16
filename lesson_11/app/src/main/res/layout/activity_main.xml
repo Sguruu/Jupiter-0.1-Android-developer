@@ -25,6 +25,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button" />
 
+    <EditText
+        android:id="@+id/editTextActivity"
+        android:layout_width="0dp"
+        android:hint="Текст для фрагмента"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonReplace"
+        />
+
     <!--
     name - Указывает фрагмент который мы хотим отобразить
     -->
@@ -35,7 +45,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/buttonReplace"
+        app:layout_constraintTop_toBottomOf="@id/editTextActivity"
         tools:layout="@layout/fragment_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

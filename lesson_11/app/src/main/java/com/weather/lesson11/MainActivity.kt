@@ -53,7 +53,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun replaceInfoFragment() {
         supportFragmentManager.beginTransaction()
-            .replace(binding.fragment1.id, InfoFragment())
+            .replace(
+                binding.fragment1.id,
+                InfoFragment.newInstance(binding.editTextActivity.text.toString())
+            )
             .commit()
     }
 }
