@@ -1,6 +1,7 @@
 package com.weather.lesson11
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.lesson11.databinding.ActivityMainBinding
 
@@ -33,9 +34,16 @@ class MainActivity : AppCompatActivity() {
         // Сразу отобразит наш фрагмент, но не добавится в бэкстэк
         // transaction.commitNow()
 
-        /* другой вид тогоже самого кода */
-        supportFragmentManager.beginTransaction()
-            .add(binding.fragment1.id, InfoFragment())
-            .commit()
+        val alreadyHasFragment =
+            supportFragmentManager.findFragmentById(binding.fragment1.id) != null
+
+        if (!alreadyHasFragment) {
+            /* другой вид тогоже самого кода */
+            supportFragmentManager.beginTransaction()
+                .add(binding.fragment1.id, InfoFragment())
+                .commit()
+        } else {
+            Toast.makeText(this, "Фрагмент уже показан", Toast.LENGTH_SHORT).show()
+        }
     }
 }
