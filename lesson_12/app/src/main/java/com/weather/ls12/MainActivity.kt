@@ -3,6 +3,7 @@ package com.weather.ls12
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.ls12.databinding.ActivityMainBinding
 
@@ -22,6 +23,14 @@ class MainActivity : AppCompatActivity() {
 
         binding.buttonReplace.setOnClickListener {
             replaceFragment()
+        }
+
+        binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                binding.editTextStateName.visibility = View.VISIBLE
+            } else {
+                binding.editTextStateName.visibility = View.GONE
+            }
         }
     }
 
@@ -60,17 +69,37 @@ class MainActivity : AppCompatActivity() {
             supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) != null
 
         //      if (!alreadyHasFragment) {
-        supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
             .add(binding.fragmentContainerView.id, FragmentOne())
-            .commit()
 //        } else {
 //            Toast.makeText(this, "Фрагмент уже показан", Toast.LENGTH_SHORT).show()
 //        }
+        if (binding.checkBox.isChecked) {
+            transaction.addToBackStack(getStateName())
+        }
+        transaction.commit()
     }
 
     private fun replaceFragment() {
-        supportFragmentManager.beginTransaction()
+        val transaction = supportFragmentManager.beginTransaction()
             .replace(binding.fragmentContainerView.id, FragmentOne())
-            .commit()
+        if (binding.checkBox.isChecked) {
+            transaction.addToBackStack(getStateName())
+        }
+        transaction.commit()
     }
+
+    private fun getStateName(): String? {
+        /*
+        trim - Возвращает строку, в которой удалены начальные и конечные пробелы.
+         */
+        val trimText = binding.editTextStateName.text.toString().trim()
+
+        if (trimText.isNotEmpty()) {
+            return trimText
+        } else {
+            return null
+        }
+    }
+
 }

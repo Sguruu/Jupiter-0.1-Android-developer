@@ -3,4 +3,6 @@
     <string name="add_fragment">Добавить фрагмент</string>
     <string name="replace_fragment">Заменить фрагмент</string>
     <string name="hint_edit_text">Введите текст</string>
+    <string name="add_to_backstack">Добавлять в Backstack</string>
+    <string name="hint_enter_state_name">Введите имя состояния</string>
 </resources>
