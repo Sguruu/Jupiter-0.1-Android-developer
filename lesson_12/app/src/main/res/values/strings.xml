@@ -5,4 +5,5 @@
     <string name="hint_edit_text">Введите текст</string>
     <string name="add_to_backstack">Добавлять в Backstack</string>
     <string name="hint_enter_state_name">Введите имя состояния</string>
+    <string name="pop_backstack">Pop Backstack</string>
 </resources>

@@ -25,6 +25,15 @@ class MainActivity : AppCompatActivity() {
             replaceFragment()
         }
 
+        binding.buttonPopBackstack.setOnClickListener {
+            val stateName = getStateName()
+            if (stateName != null) {
+                supportFragmentManager.popBackStack(stateName, 0)
+            } else {
+                supportFragmentManager.popBackStack()
+            }
+        }
+
         binding.checkBox.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 binding.editTextStateName.visibility = View.VISIBLE
@@ -64,6 +73,10 @@ class MainActivity : AppCompatActivity() {
         Log.d("MyTest", "MainActivity onDestroy")
     }
 
+    override fun onBackPressed() {
+        // заглушка
+    }
+
     private fun addFragment() {
         val alreadyHasFragment =
             supportFragmentManager.findFragmentById(binding.fragmentContainerView.id) != null
@@ -101,5 +114,4 @@ class MainActivity : AppCompatActivity() {
             return null
         }
     }
-
 }
