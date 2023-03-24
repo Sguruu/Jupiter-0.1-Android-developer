@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">LS_13</string>
+    <string name="name_1">Хася</string>
+    <string name="name_2">Грагентин</string>
+    <string name="name_3">Шайна</string>
+    <string name="name_4">Гаврик</string>
+    <string name="name_5">Тарзанчик</string>
 </resources>
