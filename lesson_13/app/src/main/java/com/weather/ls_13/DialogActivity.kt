@@ -26,6 +26,10 @@ class DialogActivity : AppCompatActivity() {
         binding.buttonShowSingleChoiceDialog.setOnClickListener {
             showSingleChoiceDialog()
         }
+
+        binding.buttonShowCustomDialog.setOnClickListener {
+            showCustomDialog()
+        }
     }
 
     private fun showSimpleDialog() {
@@ -63,6 +67,14 @@ class DialogActivity : AppCompatActivity() {
             .setItems(arrayStudents) { _, witch ->
                 showToast("Был выбран ${arrayStudents[witch]}")
             }
+            .show()
+    }
+
+    private fun showCustomDialog() {
+        AlertDialog.Builder(this)
+            // для установки кастомной view
+            .setView(R.layout.dialog_attemption)
+            .setPositiveButton("Скоро отдыхать") { _, _ -> }
             .show()
     }
 

@@ -10,4 +10,6 @@
     <string name="next_screen_dialog">Экран с диалогами</string>
     <string name="show_dialog_with_buttons">Показать диалог с кнопками</string>
     <string name="show_dialog_with_single_choice">Показать диалог с одним выбором</string>
+    <string name="show_dialog_custom_choice">Показать кастомный диалог</string>
+    <string name="warning_pot_is_boiling">Предупреждение котелок кипит !</string>
 </resources>
