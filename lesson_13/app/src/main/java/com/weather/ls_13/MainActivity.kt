@@ -50,6 +50,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
+        binding.buttonDialog.setOnClickListener {
+            val intent = Intent(this, DialogActivity::class.java)
+            startActivity(intent)
+        }
+
         // создание адаптера
         val adapter = Adapter(screensList, this)
         // присвоедние адаптера к viewpager

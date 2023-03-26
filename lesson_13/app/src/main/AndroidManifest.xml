@@ -26,5 +26,6 @@
                 android:value="" />
         </activity>
         <activity android:name=".TabsActivity"/>
+        <activity android:name=".DialogActivity"/>
     </application>
 </manifest>

@@ -6,4 +6,6 @@
     <string name="name_4">Гаврик</string>
     <string name="name_5">Тарзанчик</string>
     <string name="next_screen_tabLayout">Экран с TabLayout</string>
+    <string name="show_simple_dialog">Показать простой диалог</string>
+    <string name="next_screen_dialog">Экран с диалогами</string>
 </resources>
