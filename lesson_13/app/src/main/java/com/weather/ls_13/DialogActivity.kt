@@ -1,6 +1,7 @@
 package com.weather.ls_13
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.ls_13.databinding.ActivityDialogBinding
@@ -17,6 +18,10 @@ class DialogActivity : AppCompatActivity() {
         binding.buttonSimpleDialog.setOnClickListener {
             showSimpleDialog()
         }
+
+        binding.buttonShowDialogButton.setOnClickListener {
+            showDialogButton()
+        }
     }
 
     private fun showSimpleDialog() {
@@ -28,5 +33,26 @@ class DialogActivity : AppCompatActivity() {
 
         // отображение диалога
         dialog.show()
+    }
+
+    private fun showDialogButton() {
+        AlertDialog.Builder(this)
+            .setTitle("Удаление элемента")
+            .setMessage("Вы уверены что хотите удалить элемент ?")
+            .setPositiveButton("Да") { _, _ ->
+                showToast("Нажата кнопка Да")
+            }
+            .setNegativeButton("Нет") { _, _ ->
+                showToast("Нажата кнопка Нет")
+            }
+            .setNeutralButton("Нейтральная") { _, _ ->
+                showToast("Нажата нейтральная кнопка")
+            }
+            // можно вызвать без вызова create()
+            .show()
+    }
+
+    private fun showToast(text: String) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
     }
 }
