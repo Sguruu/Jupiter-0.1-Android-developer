@@ -2,10 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <!--
+    app:tabMode - режим отображения вкладок
+    scrollable - прокручиваемый режим вкладок
+    fixed - отображение фиксированного количества вкладок
+    auto - автоматический в зависимости от количества вкладок
+    -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
+        app:tabMode="scrollable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

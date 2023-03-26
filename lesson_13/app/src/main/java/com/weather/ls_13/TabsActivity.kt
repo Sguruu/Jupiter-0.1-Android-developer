@@ -43,7 +43,7 @@ class TabsActivity : AppCompatActivity() {
         binding = ActivityTabsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val adapter = Adapter(screensList, this)
+        val adapter = Adapter(screensList + screensList, this)
         binding.viewPager.adapter = adapter
 
         // Связываем viewPager с классом tabLayout
