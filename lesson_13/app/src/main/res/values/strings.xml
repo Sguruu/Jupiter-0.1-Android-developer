@@ -9,4 +9,5 @@
     <string name="show_simple_dialog">Показать простой диалог</string>
     <string name="next_screen_dialog">Экран с диалогами</string>
     <string name="show_dialog_with_buttons">Показать диалог с кнопками</string>
+    <string name="show_dialog_with_single_choice">Показать диалог с одним выбором</string>
 </resources>

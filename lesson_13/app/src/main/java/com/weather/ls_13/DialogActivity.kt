@@ -22,6 +22,10 @@ class DialogActivity : AppCompatActivity() {
         binding.buttonShowDialogButton.setOnClickListener {
             showDialogButton()
         }
+
+        binding.buttonShowSingleChoiceDialog.setOnClickListener {
+            showSingleChoiceDialog()
+        }
     }
 
     private fun showSimpleDialog() {
@@ -49,6 +53,16 @@ class DialogActivity : AppCompatActivity() {
                 showToast("Нажата нейтральная кнопка")
             }
             // можно вызвать без вызова create()
+            .show()
+    }
+
+    private fun showSingleChoiceDialog() {
+        val arrayStudents = arrayOf("Варя", "Герман", "Саша", "Валера")
+        AlertDialog.Builder(this)
+            .setTitle("Выберите ученика")
+            .setItems(arrayStudents) { _, witch ->
+                showToast("Был выбран ${arrayStudents[witch]}")
+            }
             .show()
     }
 
