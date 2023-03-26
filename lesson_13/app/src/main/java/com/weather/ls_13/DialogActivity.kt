@@ -10,6 +10,8 @@ class DialogActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDialogBinding
 
+    private var dialog: AlertDialog? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDialogBinding.inflate(layoutInflater)
@@ -33,18 +35,18 @@ class DialogActivity : AppCompatActivity() {
     }
 
     private fun showSimpleDialog() {
-        val dialog = AlertDialog.Builder(this)
+        dialog = AlertDialog.Builder(this)
             .setTitle("Простой диалог")
             .setMessage("Простой диалог сообщение")
             // конфигурация диалога из билдера и получение инстанса диалога
             .create()
 
         // отображение диалога
-        dialog.show()
+        dialog?.show()
     }
 
     private fun showDialogButton() {
-        AlertDialog.Builder(this)
+        dialog = AlertDialog.Builder(this)
             .setTitle("Удаление элемента")
             .setMessage("Вы уверены что хотите удалить элемент ?")
             .setPositiveButton("Да") { _, _ ->
@@ -56,29 +58,39 @@ class DialogActivity : AppCompatActivity() {
             .setNeutralButton("Нейтральная") { _, _ ->
                 showToast("Нажата нейтральная кнопка")
             }
-            // можно вызвать без вызова create()
-            .show()
+            .create()
+
+        dialog?.show()
     }
 
     private fun showSingleChoiceDialog() {
         val arrayStudents = arrayOf("Варя", "Герман", "Саша", "Валера")
-        AlertDialog.Builder(this)
+        dialog = AlertDialog.Builder(this)
             .setTitle("Выберите ученика")
             .setItems(arrayStudents) { _, witch ->
                 showToast("Был выбран ${arrayStudents[witch]}")
             }
-            .show()
+            .create()
+        //  .show()
+        dialog?.show()
     }
 
     private fun showCustomDialog() {
-        AlertDialog.Builder(this)
+        dialog = AlertDialog.Builder(this)
             // для установки кастомной view
             .setView(R.layout.dialog_attemption)
             .setPositiveButton("Скоро отдыхать") { _, _ -> }
-            .show()
+            .create()
+        dialog?.show()
     }
 
     private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // скрытие диалога при перевороте
+        dialog?.dismiss()
     }
 }
