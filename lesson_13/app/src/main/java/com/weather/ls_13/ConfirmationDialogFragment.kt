@@ -14,9 +14,15 @@ class ConfirmationDialogFragment : DialogFragment() {
         return AlertDialog.Builder(requireContext())
             .setTitle("Удаление элемента")
             .setMessage("Вы уверены что хотите удалить элемент ?")
-            .setPositiveButton("Да") { _, _ -> }
-            .setNegativeButton("Нет") { _, _ -> }
-            .setNeutralButton("Нейтральная") { _, _ -> }
+            .setPositiveButton("Да") { _, _ ->
+                (activity as DialogActivity).positiveButtonListener()
+            }
+            .setNegativeButton("Нет") { _, _ ->
+                (activity as DialogActivity).negativeButtonListener()
+            }
+            .setNeutralButton("Нейтральная") { _, _ ->
+                (activity as DialogActivity).neutralButtonListener()
+            }
             .create()
     }
 }

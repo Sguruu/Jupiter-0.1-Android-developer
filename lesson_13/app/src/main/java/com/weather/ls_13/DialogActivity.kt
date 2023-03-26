@@ -6,7 +6,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.ls_13.databinding.ActivityDialogBinding
 
-class DialogActivity : AppCompatActivity() {
+class DialogActivity : AppCompatActivity(), IListenerDialog {
 
     private lateinit var binding: ActivityDialogBinding
 
@@ -114,5 +114,17 @@ class DialogActivity : AppCompatActivity() {
         super.onDestroy()
         // скрытие диалога при перевороте
         dialog?.dismiss()
+    }
+
+    override fun positiveButtonListener() {
+        showToast("Нажата кнопка Да")
+    }
+
+    override fun negativeButtonListener() {
+        showToast("Нажата кнопка Нет")
+    }
+
+    override fun neutralButtonListener() {
+        showToast("Нажата нейтральная кнопка")
     }
 }
