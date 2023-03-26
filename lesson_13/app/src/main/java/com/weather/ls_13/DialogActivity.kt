@@ -32,6 +32,10 @@ class DialogActivity : AppCompatActivity() {
         binding.buttonShowCustomDialog.setOnClickListener {
             showCustomDialog()
         }
+
+        binding.buttonShowFragmentDialog.setOnClickListener {
+            showFragmentDialog()
+        }
     }
 
     private fun showSimpleDialog() {
@@ -84,8 +88,26 @@ class DialogActivity : AppCompatActivity() {
         dialog?.show()
     }
 
+    private fun showFragmentDialog() {
+        ConfirmationDialogFragment()
+            // tag используется для того чтобы в будущем найти во фрагмент менеджере и скрыть
+            // диалог
+            .show(supportFragmentManager, "ConfirmationDialogTag")
+    }
+
     private fun showToast(text: String) {
         Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
+    }
+
+    /**
+     * Закрытие программно диалог фрагмента
+     */
+    private fun hideDialogFragment() {
+        supportFragmentManager.findFragmentByTag("ConfirmationDialogTag")
+            // если фрагмент нашелся по тегу, проверяем является ли он ConfirmationDialogFragment
+            ?.let { it as? ConfirmationDialogFragment }
+            // если является мы его закрываем
+            ?.dismiss()
     }
 
     override fun onDestroy() {
