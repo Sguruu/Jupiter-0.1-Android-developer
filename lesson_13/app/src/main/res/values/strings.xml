@@ -5,4 +5,5 @@
     <string name="name_3">Шайна</string>
     <string name="name_4">Гаврик</string>
     <string name="name_5">Тарзанчик</string>
+    <string name="next_screen_tabLayout">Экран с TabLayout</string>
 </resources>
