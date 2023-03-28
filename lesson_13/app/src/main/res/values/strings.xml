@@ -12,5 +12,9 @@
     <string name="show_dialog_with_single_choice">Показать диалог с одним выбором</string>
     <string name="show_dialog_custom_choice">Показать кастомный диалог</string>
     <string name="show_dialog_fragment">Показать диалог фрагмент</string>
+    <string name="show_bottom_sheet_dialog">Показать bottomSheetDialog</string>
     <string name="warning_pot_is_boiling">Предупреждение котелок кипит !</string>
+    <string name="add_photo">Добавить фото</string>
+    <string name="open_gallery">Открыть галерею</string>
+    <string name="delete_photo">Удалить фото</string>
 </resources>

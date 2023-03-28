@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="4dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/add_photo"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textViewAddPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/open_gallery"
+        android:textSize="14sp"
+        app:drawableLeftCompat="@drawable/ic_baseline_insert_photo_24" />
+
+    <TextView
+        android:id="@+id/deletePhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:drawablePadding="10dp"
+        android:gravity="center_vertical"
+        android:text="@string/delete_photo"
+        android:textSize="14sp"
+        app:drawableLeftCompat="@drawable/ic_baseline_delete_24" />
+
+</LinearLayout>

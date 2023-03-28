@@ -36,6 +36,10 @@ class DialogActivity : AppCompatActivity(), IListenerDialog {
         binding.buttonShowFragmentDialog.setOnClickListener {
             showFragmentDialog()
         }
+
+        binding.buttonShowBottomSheetDialog.setOnClickListener {
+            showBottomSheetDialog()
+        }
     }
 
     private fun showSimpleDialog() {
@@ -93,6 +97,11 @@ class DialogActivity : AppCompatActivity(), IListenerDialog {
             // tag используется для того чтобы в будущем найти во фрагмент менеджере и скрыть
             // диалог
             .show(supportFragmentManager, "ConfirmationDialogTag")
+    }
+
+    private fun showBottomSheetDialog() {
+        PhotoBottomSheet()
+            .show(supportFragmentManager, "PhotoBottomSheetTag")
     }
 
     private fun showToast(text: String) {
