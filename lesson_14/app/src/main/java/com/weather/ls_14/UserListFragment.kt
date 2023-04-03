@@ -62,6 +62,7 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+        adapter = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
