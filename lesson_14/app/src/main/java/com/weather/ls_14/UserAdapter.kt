@@ -83,8 +83,6 @@ class UserAdapter(
 
     fun updateUsers(newUsers: List<User>) {
         listUser = newUsers
-        // оповещает адаптер что список изменился и необходимо перерисовать наш лист
-        notifyDataSetChanged()
     }
 
     // вариант два

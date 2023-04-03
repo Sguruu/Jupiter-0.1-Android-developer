@@ -81,6 +81,9 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
 
         // обновление списка
         adapter?.updateUsers(listUsers)
+
+        // добавляем элемент в список
+        adapter?.notifyItemInserted(0)
     }
 
     private fun initList() {
@@ -98,5 +101,6 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
         // позиции
         listUsers = listUsers.filterIndexed { index, user -> index != position }
         adapter?.updateUsers(listUsers)
+        adapter?.notifyItemRemoved(position)
     }
 }
