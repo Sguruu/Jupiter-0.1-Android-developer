@@ -84,6 +84,8 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
 
         // добавляем элемент в список
         adapter?.notifyItemInserted(0)
+        // скролл до нужной позиции
+        binding.recyclerView.scrollToPosition(0)
     }
 
     private fun initList() {
