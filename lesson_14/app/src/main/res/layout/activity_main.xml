@@ -22,12 +22,20 @@
         tools:listitem="@layout/item_user" />
 
     <Button
-        android:id="@+id/nextScreenButton"
+        android:id="@+id/nextScreenUserListButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=">"
+        android:text="User List"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/nextScreenPersonListButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Person list"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

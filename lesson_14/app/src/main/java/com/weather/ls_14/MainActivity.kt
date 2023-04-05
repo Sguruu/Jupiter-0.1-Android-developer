@@ -1,6 +1,5 @@
 package com.weather.ls_14
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -50,9 +49,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initList()
 
-        binding.nextScreenButton.setOnClickListener {
-            val newScreenIntent = Intent(this, UserListActivity::class.java)
-            startActivity(newScreenIntent)
+        binding.nextScreenPersonListButton.setOnClickListener {
+            val intent = UserListActivity.getIntentUserListActivity(
+                this,
+                UserListActivity.NAME_PERSON_LIST_FRAGMENT
+            )
+            startActivity(intent)
+        }
+
+        binding.nextScreenUserListButton.setOnClickListener {
+            val intent = UserListActivity.getIntentUserListActivity(
+                this,
+                UserListActivity.NAME_USER_LIST_FRAGMENT
+            )
+            startActivity(intent)
         }
     }
 
