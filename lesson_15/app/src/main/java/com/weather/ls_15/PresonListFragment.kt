@@ -81,5 +81,10 @@ class PersonListFragment : Fragment(R.layout.fragment_user_list) {
             .observe(viewLifecycleOwner) { newPersons ->
                 adapter?.updatePersons(newPersons.orEmpty())
             }
+
+        personListViewModel.showToastLiveData
+            .observe(viewLifecycleOwner) {
+                Toast.makeText(requireContext(), "Пользователь добавлен", Toast.LENGTH_SHORT).show()
+            }
     }
 }
