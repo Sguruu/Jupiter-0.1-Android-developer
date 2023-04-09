@@ -42,14 +42,12 @@ class PersonListFragment : Fragment(R.layout.fragment_user_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initList()
-        binding.addFloatingActionButton.setOnClickListener {
-            addUser()
-        }
+        binding.addFloatingActionButton.setOnClickListener { addUser() }
+        observeViewModelState()
     }
 
     private fun addUser() {
         personListViewModel.addPerson()
-        updatePersonList()
         // добавляем элемент в список
         adapter?.notifyItemInserted(0)
         // скролл до нужной позиции
@@ -63,21 +61,25 @@ class PersonListFragment : Fragment(R.layout.fragment_user_list) {
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
-
-        if (personListViewModel.getListPersons().isEmpty()) {
-            personListViewModel.createListPerson(3)
-        }
-        updatePersonList()
     }
 
     private fun deleteUser(position: Int) {
         Toast.makeText(requireContext(), "deleteUser $position", Toast.LENGTH_SHORT).show()
         personListViewModel.deletePerson(position)
-        updatePersonList()
         adapter?.notifyItemRemoved(position)
     }
 
-    private fun updatePersonList() {
-        adapter?.updatePersons(personListViewModel.getListPersons())
+    // наблюдение за изменением состоянии viewModel
+    private fun observeViewModelState() {
+        personListViewModel.personLiveData
+            /*
+            * на вход этой функции необходимо первым параметром передать lifecycleowner для
+            * тогго, чтобы подписчик автоматически отписался когда фрагмент станет неактивным
+            * для предотвращения утечки памяти,
+            * второй параметр лямбду функцию
+            * */
+            .observe(viewLifecycleOwner) { newPersons ->
+                adapter?.updatePersons(newPersons.orEmpty())
+            }
     }
 }
