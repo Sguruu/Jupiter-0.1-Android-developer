@@ -65,8 +65,10 @@ class PersonListFragment : Fragment(R.layout.fragment_user_list) {
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
-        adapter?.updatePersons(personListViewModel.createListPerson(3))
-        adapter?.notifyDataSetChanged()
+        if (personListViewModel.getListPersons().isEmpty()) {
+            adapter?.updatePersons(personListViewModel.createListPerson(3))
+        }
+        updatePersonList()
     }
 
     private fun deleteUser(position: Int) {
