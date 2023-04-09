@@ -1,7 +1,6 @@
 package com.weather.ls_15
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -66,13 +65,12 @@ class PersonListFragment : Fragment(R.layout.fragment_user_list) {
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         if (personListViewModel.getListPersons().isEmpty()) {
-            adapter?.updatePersons(personListViewModel.createListPerson(3))
+            personListViewModel.createListPerson(3)
         }
         updatePersonList()
     }
 
     private fun deleteUser(position: Int) {
-        Log.d("MyTest", "deleteUser")
         Toast.makeText(requireContext(), "deleteUser $position", Toast.LENGTH_SHORT).show()
         personListViewModel.deletePerson(position)
         updatePersonList()
@@ -80,7 +78,6 @@ class PersonListFragment : Fragment(R.layout.fragment_user_list) {
     }
 
     private fun updatePersonList() {
-        Log.d("MyTest", "updatePersonList ${personListViewModel.getListPersons().size}")
         adapter?.updatePersons(personListViewModel.getListPersons())
     }
 }
