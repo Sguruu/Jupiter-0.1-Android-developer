@@ -3,4 +3,5 @@
     <string name="developer">Разработчик</string>
     <string name="programming_language">Язык программирования %1$s</string>
     <string name="age">Возраст = %1$d</string>
+    <string name="detail_info">Информация о пользователе</string>
 </resources>

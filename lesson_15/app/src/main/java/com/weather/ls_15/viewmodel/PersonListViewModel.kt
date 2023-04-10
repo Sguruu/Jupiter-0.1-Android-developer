@@ -1,9 +1,11 @@
-package com.weather.ls_15
+package com.weather.ls_15.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.weather.ls_15.model.Person
 import com.weather.ls_15.ex.SingleLiveEvent
+import com.weather.ls_15.repository.PersonRepository
 
 class PersonListViewModel : ViewModel() {
 

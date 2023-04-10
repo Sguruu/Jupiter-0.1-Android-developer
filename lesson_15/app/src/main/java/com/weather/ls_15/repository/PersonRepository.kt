@@ -1,4 +1,6 @@
-package com.weather.ls_15
+package com.weather.ls_15.repository
+
+import com.weather.ls_15.model.Person
 
 class PersonRepository {
     private val link1 = "https://cs14.pikabu.ru/post_img/big/2023/02/13/8/1676295806139337963.png"

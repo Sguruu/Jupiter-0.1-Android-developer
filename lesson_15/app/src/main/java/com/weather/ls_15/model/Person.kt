@@ -1,4 +1,4 @@
-package com.weather.ls_15
+package com.weather.ls_15.model
 
 sealed class Person {
 

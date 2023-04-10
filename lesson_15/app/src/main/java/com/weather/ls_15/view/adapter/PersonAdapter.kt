@@ -1,4 +1,4 @@
-package com.weather.ls_15
+package com.weather.ls_15.view.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +8,12 @@ import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.weather.ls_15.R
+import com.weather.ls_15.model.Person
 
 class PersonAdapter(
-    private val onItemClick: (position: Int) -> Unit
+    private val onItemClick: (name: String, age: Int) -> Unit,
+    private val onLongItemClick: ((position: Int) -> Unit)?
 ) :
 // так как мы будем использовать разные viewHolder для разных типов пользователей укажем базовый
 // viewHolder
@@ -23,11 +26,11 @@ class PersonAdapter(
             when (viewType) {
                 TYPE_USER -> {
                     val view = inflate.inflate(R.layout.item_user, parent, false)
-                    return UserHolder(view, onItemClick)
+                    return UserHolder(view, onItemClick, onLongItemClick)
                 }
                 TYPE_DEVELOPER -> {
                     val view = inflate.inflate(R.layout.item_developer, parent, false)
-                    return DeveloperHolder(view, onItemClick)
+                    return DeveloperHolder(view, onItemClick, onLongItemClick)
                 }
                 else -> error("Incorrect viewType=$viewType")
             }
@@ -74,16 +77,17 @@ class PersonAdapter(
         // тут реализуем только общее поведение
         abstract class BasePersonHolder(
             view: View,
-            onItemClick: (position: Int) -> Unit
+            private val onItemClick: (name: String, age: Int) -> Unit,
+            onLongItemClick: ((position: Int) -> Unit)?
         ) : RecyclerView.ViewHolder(view) {
             private val nameTextView: TextView = view.findViewById(R.id.nameTextView)
             private val ageTextView: TextView = view.findViewById(R.id.ageTextView)
             private val imageView: ImageView = view.findViewById(R.id.avatarImageView)
 
             init {
-                // так как обработка клика, реализуем его в базавом классе
-                view.setOnClickListener {
-                    onItemClick.invoke(adapterPosition)
+                view.setOnLongClickListener {
+                    onLongItemClick?.invoke(adapterPosition)
+                    return@setOnLongClickListener true
                 }
             }
 
@@ -100,14 +104,19 @@ class PersonAdapter(
                     .load(avatarLink)
                     .placeholder(R.drawable.ic_launcher_foreground)
                     .into(imageView)
+
+                itemView.setOnClickListener {
+                    onItemClick.invoke(name, age)
+                }
             }
         }
 
         // используется для отображение персоны пользователя (Person.User)
         class UserHolder(
             view: View,
-            onItemClick: (position: Int) -> Unit
-        ) : BasePersonHolder(view, onItemClick) {
+            onItemClick: (name: String, age: Int) -> Unit,
+            onLongItemClick: ((position: Int) -> Unit)?
+        ) : BasePersonHolder(view, onItemClick, onLongItemClick) {
             init {
                 // делаем невидимой view
                 view.findViewById<TextView>(R.id.developerTextView).isVisible = false
@@ -121,8 +130,9 @@ class PersonAdapter(
         // используется для отображения персоны программиста (Person.User)
         class DeveloperHolder(
             view: View,
-            onItemClick: (position: Int) -> Unit
-        ) : BasePersonHolder(view, onItemClick) {
+            onItemClick: (name: String, age: Int) -> Unit,
+            onLongItemClick: ((position: Int) -> Unit)?
+        ) : BasePersonHolder(view, onItemClick, onLongItemClick) {
             private val programmingLanguageTextView: TextView =
                 view.findViewById(R.id.programmingLanguageTextView)
 

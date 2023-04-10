@@ -5,11 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.weather.ls_15.databinding.FragmentUserListBinding
+import com.weather.ls_15.view.DetailsFragment
+import com.weather.ls_15.view.adapter.PersonAdapter
+import com.weather.ls_15.viewmodel.PersonListViewModel
 
 class PersonListFragment : Fragment(R.layout.fragment_user_list) {
 
@@ -55,9 +60,31 @@ class PersonListFragment : Fragment(R.layout.fragment_user_list) {
     }
 
     private fun initList() {
-        adapter = PersonAdapter { position ->
-            deleteUser(position)
-        }
+        adapter = PersonAdapter({ name, age ->
+            //  val keyName = DetailsFragment.KEY_NAME
+            //  val keyAge = DetailsFragment.KEY_AGE
+            /*
+             * нав контоллер есть только у navhost’а. текущий фрагмент списка персон не является
+             * навхостом. поэтому начиная с текущего фрагмента этот метод будет обращаться к
+             * родительскому фрагменту и проверять, является ли родитель реализацией navhost - если
+             * да, то вернется контроллер от найденного хоста. если все родители вплоть до корневого
+             * фрагмента не являются реализацией navhosta то выбрасывается исключение.
+             */
+            findNavController()
+                // в него необходимо передать идентификатор action, который мы хотим выполнить при
+                // навигации
+                .navigate(
+                    R.id.action_personListFragment_to_detailsFragment,
+                    bundleOf(
+                        Pair(DetailsFragment.KEY_NAME, name),
+                        Pair(DetailsFragment.KEY_AGE, age)
+                    )
+                )
+            // вернуться назад программно
+            // findNavController().popBackStack()
+        }, { position ->
+            deleteUser(position = position)
+        })
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
