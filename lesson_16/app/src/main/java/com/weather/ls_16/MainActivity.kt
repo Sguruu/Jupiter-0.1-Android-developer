@@ -13,6 +13,9 @@ class MainActivity : AppCompatActivity() {
     private var isTimerStart = false
     private lateinit var threadTimer: Thread
 
+    private val friend1 = Person("Сержа")
+    private val friend2 = Person("Тяпа")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -37,6 +40,23 @@ class MainActivity : AppCompatActivity() {
         binding.noRaceConditionButton.setOnClickListener {
             synchronizedMakeMultithreadingIncrement()
         }
+        binding.deadLockButton.setOnClickListener {
+            deadLock()
+        }
+    }
+
+    private fun deadLock() {
+        val thread1 = Thread {
+            friend1.throwBallTo(friend2)
+        }
+        val thread2 = Thread {
+            friend2.throwBallTo(friend1)
+        }
+
+        thread1.start()
+        thread2.start()
+
+        binding.textView.text = "Результат выполнеия программы смотри в логах"
     }
 
     // пример ошибки Race Condition
