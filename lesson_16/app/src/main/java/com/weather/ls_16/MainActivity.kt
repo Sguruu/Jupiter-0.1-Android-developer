@@ -30,6 +30,85 @@ class MainActivity : AppCompatActivity() {
         viewModel.timeLiveData.observe(this) {
             supportActionBar?.title = it.toString()
         }
+
+        binding.raceConditionButton.setOnClickListener {
+            makeMultithreadingIncrement()
+        }
+        binding.noRaceConditionButton.setOnClickListener {
+            synchronizedMakeMultithreadingIncrement()
+        }
+    }
+
+    // пример ошибки Race Condition
+    private fun makeMultithreadingIncrement() {
+        var value = 0
+        // количество потоков
+        val threadCount = 100
+        // количество опреаций
+        val incrementCount = 1000
+        // ожидаемое значение
+        val expectedValue = value + threadCount * incrementCount
+
+        val listThread = (0 until threadCount).map {
+            Thread {
+                for (y in 0 until incrementCount) {
+                    value++
+                }
+            }
+        }
+
+        listThread.forEach {
+            it.start()
+        }
+
+        listThread.forEach {
+            it.join()
+        }
+
+        /* альтернативная запись создания потоков
+        (0 until threadCount).map {
+            Thread {
+                for (y in 0 until incrementCount) {
+                    value++
+                }
+            }.apply {
+                start()
+            }
+        }.map {
+            it.join()
+        }
+         */
+
+        binding.textView.setText("value=$value, expected=$expectedValue")
+    }
+
+    private fun synchronizedMakeMultithreadingIncrement() {
+        var value = 0
+        // количество потоков
+        val threadCount = 100
+        // количество операций
+        val incrementCount = 1000
+        // ожидаемое значение
+        val expectedValue = value + threadCount * incrementCount
+
+        val listThread = (0 until threadCount).map {
+            Thread {
+                synchronized(this) {
+                    for (y in 0 until incrementCount) {
+                        value++
+                    }
+                }
+            }
+        }
+
+        listThread.forEach {
+            it.start()
+        }
+
+        listThread.forEach {
+            it.join()
+        }
+        binding.textView.setText("value=$value, expected=$expectedValue")
     }
 
     private fun startTimer() {

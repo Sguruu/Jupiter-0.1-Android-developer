@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">LS_16</string>
     <string name="threads">threads</string>
+    <string name="race_condition">race condition</string>
+    <string name="no_race_condition">no race condition</string>
+    <string name="deadlock">deadlock</string>
 </resources>
