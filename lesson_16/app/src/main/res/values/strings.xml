@@ -4,4 +4,5 @@
     <string name="race_condition">race condition</string>
     <string name="no_race_condition">no race condition</string>
     <string name="deadlock">deadlock</string>
+    <string name="no_deadlock">no deadlock</string>
 </resources>

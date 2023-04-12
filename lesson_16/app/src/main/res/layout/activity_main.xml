@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/threads" />
+
     <Button
         android:id="@+id/raceConditionButton"
         android:layout_width="match_parent"
@@ -30,6 +31,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/deadlock" />
+
+    <Button
+        android:id="@+id/noDeadLockButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/no_deadlock" />
 
     <TextView
         android:id="@+id/textView"

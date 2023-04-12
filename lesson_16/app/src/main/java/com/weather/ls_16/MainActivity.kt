@@ -43,9 +43,12 @@ class MainActivity : AppCompatActivity() {
         binding.deadLockButton.setOnClickListener {
             deadLock()
         }
+        binding.noDeadLockButton.setOnClickListener {
+            noDeadLock()
+        }
     }
 
-    private fun deadLock() {
+    private fun noDeadLock() {
         val thread1 = Thread {
             friend1.throwBallTo(friend2)
         }
@@ -56,7 +59,21 @@ class MainActivity : AppCompatActivity() {
         thread1.start()
         thread2.start()
 
-        binding.textView.text = "Результат выполнеия программы смотри в логах"
+        binding.textView.text = "Результат выполнения программы смотри в логах"
+    }
+
+    private fun deadLock() {
+        val thread1 = Thread {
+            friend1.throwBallToDeadLock(friend2)
+        }
+        val thread2 = Thread {
+            friend2.throwBallToDeadLock(friend1)
+        }
+
+        thread1.start()
+        thread2.start()
+
+        binding.textView.text = "Результат выполнения программы смотри в логах"
     }
 
     // пример ошибки Race Condition
