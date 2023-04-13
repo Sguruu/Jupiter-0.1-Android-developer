@@ -5,9 +5,11 @@ import android.os.Handler
 import android.os.HandlerThread
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.ls_16.databinding.ActivityMainBinding
+import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +23,10 @@ class MainActivity : AppCompatActivity() {
     private val friend2 = Person("Тяпа")
 
     private lateinit var handler: Handler
+
+    // будет давать возможность отправлять задачи в наш главный поток
+    // указываем looper главного потока
+    private val mainHandler = Handler(Looper.getMainLooper())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +70,36 @@ class MainActivity : AppCompatActivity() {
 
         binding.handlerButton.setOnClickListener {
             runHandler()
+        }
+        binding.handlerThreadButton.setOnClickListener {
+            runHandlerThread()
+        }
+    }
+
+    private fun runHandlerThread() {
+        // инициализируем наш поток, в параметр нужно положить имя потока
+        /*
+        *  Looper.prepare() и  Looper.loop() создадуться автоматически
+        */
+        val backgroundThread = HandlerThread("handlerThread")
+        // запускаем наш поток
+        backgroundThread.start()
+        handler = Handler(backgroundThread.looper)
+
+        handler.post {
+            Log.d("MyTest", "Execute task from thread = ${Thread.currentThread().name}")
+            // создание рандомонго числа
+            val randomNumber = Random.nextLong()
+            // передача в главный поток
+            mainHandler.post {
+                Log.d("Handler", "Execute view task from thread = ${Thread.currentThread().name}")
+                binding.textView.text = randomNumber.toString()
+            }
+
+            // запуск с задержкой
+            mainHandler.postDelayed({
+                Toast.makeText(this, "Был добавлен $randomNumber", Toast.LENGTH_LONG).show()
+            }, 2000)
         }
     }
 
