@@ -1,6 +1,10 @@
 package com.weather.ls_16
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
+import android.os.Looper
+import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.ls_16.databinding.ActivityMainBinding
@@ -16,11 +20,27 @@ class MainActivity : AppCompatActivity() {
     private val friend1 = Person("Сержа")
     private val friend2 = Person("Тяпа")
 
+    private lateinit var handler: Handler
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initHandler()
 
+        viewModel.timeLiveData.observe(this) {
+            supportActionBar?.title = it.toString()
+        }
+
+        initListener()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        handler.looper.quit()
+    }
+
+    private fun initListener() {
         binding.threadsButton.setOnClickListener {
             if (isTimerStart) {
                 threadTimer.interrupt()
@@ -29,11 +49,6 @@ class MainActivity : AppCompatActivity() {
             }
             isTimerStart = !isTimerStart
         }
-
-        viewModel.timeLiveData.observe(this) {
-            supportActionBar?.title = it.toString()
-        }
-
         binding.raceConditionButton.setOnClickListener {
             makeMultithreadingIncrement()
         }
@@ -46,6 +61,41 @@ class MainActivity : AppCompatActivity() {
         binding.noDeadLockButton.setOnClickListener {
             noDeadLock()
         }
+
+        binding.handlerButton.setOnClickListener {
+            runHandler()
+        }
+    }
+
+    private fun runHandler() {
+        handler.post {
+            Log.d("MyTest", "Execute task from thread = ${Thread.currentThread().name}")
+        }
+    }
+
+    private fun initHandler() {
+        // запустим поток
+        Thread {
+            // Инициализировать текущий поток как цикл.
+            Looper.prepare()
+
+            // Возвращает объект Looper, связанный с текущим потоком.
+            //   Looper.myLooper()
+            // Возвращает объект MessageQueue, связанный с текущим потоком.
+            //  Looper.myQueue()
+
+            /*
+            Конструктор по умолчанию связывает этот обработчик с Looper для текущего потока. Если в
+            этом потоке нет петлителя, этот обработчик не сможет получать сообщения, поэтому
+            генерируется исключение.
+             */
+            handler = Handler()
+
+            // для того чтобы Looper стал работать необходим вызвать метод
+            // запуск очереди сообщений в текущем потоке
+            Looper.loop()
+            Log.d("MyTest", "End thread = ${Thread.currentThread().name}")
+        }.start()
     }
 
     private fun noDeadLock() {

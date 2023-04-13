@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,46 +8,65 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/threadsButton"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/threads" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/raceConditionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/race_condition" />
+        <Button
+            android:id="@+id/threadsButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/threads" />
 
-    <Button
-        android:id="@+id/noRaceConditionButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_race_condition" />
+        <Button
+            android:id="@+id/raceConditionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/race_condition" />
 
-    <Button
-        android:id="@+id/deadLockButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/deadlock" />
+        <Button
+            android:id="@+id/noRaceConditionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_race_condition" />
 
-    <Button
-        android:id="@+id/noDeadLockButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/no_deadlock" />
+        <Button
+            android:id="@+id/deadLockButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/deadlock" />
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <Button
+            android:id="@+id/noDeadLockButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_deadlock" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/handlerButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/handler" />
+
+        <Button
+            android:id="@+id/handlerThreadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/handler_thread" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Hello World!"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
+
+</ScrollView>
