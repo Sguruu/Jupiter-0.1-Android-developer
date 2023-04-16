@@ -5,14 +5,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.weather.myapplication.R
 import com.weather.myapplication.databinding.FragmentInfoBinding
+import com.weather.myapplication.viewmodel.InfoViewModel
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: InfoViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -26,6 +29,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeViewModelState()
         val nameCity = arguments?.getString(KEY_NAME_CITY)
         val lon = arguments?.getString(KEY_LON)
         val lat = arguments?.getString(KEY_LAT)
@@ -34,23 +38,47 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         nameCity?.let {
             binding.cityTextView.text = it
         }
-        lon?.let {
-            binding.minTextView.text = it
+
+        if (savedInstanceState == null) {
+            if (lon != null && lat != null) {
+                viewModel.requestWeather(lat, lon)
+            }
         }
-        lat?.let {
-            binding.maxTextView.text = it
-        }
+
         imageLink?.let {
-            Glide.with(binding.root)
-                .load(it)
-                .placeholder(R.drawable.ic_launcher_foreground)
-                .into(binding.cityImageView)
+            renderView(it)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun observeViewModelState() {
+        viewModel.responseWeatherLiveData.observe(viewLifecycleOwner) {
+            binding.descriptionTextView.text = resources.getString(
+                R.string.forecast,
+                it.description
+            )
+            binding.minTextView.text = resources.getString(
+                R.string.min_c,
+                it.main.temp_min.toString()
+            )
+            binding.maxTextView.text = resources.getString(
+                R.string.max_c,
+                it.main.temp_max.toString()
+            )
+        }
+    }
+
+    private fun renderView(imageLink: String) {
+        imageLink.let {
+            Glide.with(binding.root)
+                .load(it)
+                .placeholder(R.drawable.ic_launcher_foreground)
+                .into(binding.cityImageView)
+        }
     }
 
     companion object {

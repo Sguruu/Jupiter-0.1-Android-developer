@@ -68,17 +68,19 @@ class WeatherRepository {
         }.start()
     }
 
-    fun parseMovieResponse(responseBodyString: String): ResponseWeather? {
+    private fun parseMovieResponse(responseBodyString: String): ResponseWeather? {
+        Log.d("MyTest", "test1")
         return try {
             // создадим объект Object у него уже сможем обращаться к вложенным полям
             // также стоит отметить responseBodyString может придти в не корректном формате
             val jsonObject = JSONObject(responseBodyString)
-            val weatherDescription = jsonObject.getJSONObject("weather")
-                .getString("description")
+            val weatherArray = jsonObject.getJSONArray("weather")
+
+            val description = weatherArray.getJSONObject(0).getString("description")
             val tempMin = jsonObject.getJSONObject("main").getDouble("temp_min")
             val tempMax = jsonObject.getJSONObject("main").getDouble("temp_max")
 
-            ResponseWeather(Main(tempMin, tempMax), weatherDescription)
+            return ResponseWeather(Main(tempMin, tempMax), description)
         } catch (e: JSONException) {
             Log.d("MyTest", "parse response error = ${e.message}", e)
             null

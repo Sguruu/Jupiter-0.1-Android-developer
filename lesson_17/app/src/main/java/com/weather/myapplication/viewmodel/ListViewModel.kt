@@ -10,12 +10,4 @@ class ListViewModel : ViewModel() {
     private val _cityListLiveData = MutableLiveData<List<City>>(repository.createListCity())
     val cityListLiveData
         get() = _cityListLiveData
-
-    private fun updateCityList(listCity: List<City>) {
-        _cityListLiveData.postValue(listCity)
-    }
-
-    fun test() {
-        repository.requestWeather("37.6024","37.6024")
-    }
 }

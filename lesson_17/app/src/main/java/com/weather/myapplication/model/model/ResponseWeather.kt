@@ -1,8 +1,8 @@
 package com.weather.myapplication.model.model
 
 data class ResponseWeather(
-    private val main: Main,
-    private val description: String
+    val main: Main,
+    val description: String
 )
 
 data class Main(
