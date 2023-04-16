@@ -48,34 +48,36 @@ class WeatherRepository {
         lat: String,
         lon: String,
         callback: (responseWeather: ResponseWeather?) -> Unit
-    ) {
+    ): Call {
         // запрос асинхронно
-        Network.getWeatherCall(lat, lon).enqueue(object : Callback {
-            // если ошибка
-            override fun onFailure(call: Call, e: IOException) {
-                Log.d("MyTest", "execute request error = ${e.message}", e)
-                callback.invoke(null)
-            }
-
-            // если успешно
-            override fun onResponse(call: Call, response: Response) {
-                // проверка что ответ от сервера успешен
-                if (response.isSuccessful) {
-                    Network.getWeatherCall(lat, lon)
-                        // выполнение вызова, также он возвращает ответ от сервера
-                        .execute()
-                    // возвращает тело ответа
-                    val responseBody = response.body?.string().orEmpty()
-                    val responseWeather = parseMovieResponse(responseBody)
-                    callback.invoke(responseWeather)
-                    Log.d("MyTest", "responseBody  $responseBody")
-                    // проверим успешно ли выполнился запрос в сеть
-                    Log.d("MyTest", "response successful = ${response.isSuccessful}")
-                } else {
+        return Network.getWeatherCall(lat, lon).apply {
+            enqueue(object : Callback {
+                // если ошибка
+                override fun onFailure(call: Call, e: IOException) {
+                    Log.d("MyTest", "execute request error = ${e.message}", e)
                     callback.invoke(null)
                 }
-            }
-        })
+
+                // если успешно
+                override fun onResponse(call: Call, response: Response) {
+                    // проверка что ответ от сервера успешен
+                    if (response.isSuccessful) {
+                        Network.getWeatherCall(lat, lon)
+                            // выполнение вызова, также он возвращает ответ от сервера
+                            .execute()
+                        // возвращает тело ответа
+                        val responseBody = response.body?.string().orEmpty()
+                        val responseWeather = parseMovieResponse(responseBody)
+                        callback.invoke(responseWeather)
+                        Log.d("MyTest", "responseBody  $responseBody")
+                        // проверим успешно ли выполнился запрос в сеть
+                        Log.d("MyTest", "response successful = ${response.isSuccessful}")
+                    } else {
+                        callback.invoke(null)
+                    }
+                }
+            })
+        }
 
         // совершим запрос синхронно
 //        Thread {
