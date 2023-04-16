@@ -5,6 +5,10 @@ import com.weather.myapplication.R
 import com.weather.myapplication.base.App
 import com.weather.myapplication.base.network.Network
 import com.weather.myapplication.model.model.City
+import com.weather.myapplication.model.model.Main
+import com.weather.myapplication.model.model.ResponseWeather
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.IOException
 
 class WeatherRepository {
@@ -37,9 +41,11 @@ class WeatherRepository {
         )
     }
 
-    fun responseWeather() {}
-
-    fun requestWeather(lat: String, lon: String) {
+    fun requestWeather(
+        lat: String,
+        lon: String,
+        callback: (responseWeather: ResponseWeather?) -> Unit
+    ) {
         // совершим запрос синхронно
         Thread {
             try {
@@ -48,11 +54,34 @@ class WeatherRepository {
                     // выполнение вызова, также он возвращает ответ от сервера
                     .execute()
 
+                // возвращает тело ответа
+                val responseBody = response.body?.string().orEmpty()
+                val responseWeather = parseMovieResponse(responseBody)
+                callback(responseWeather)
+                Log.d("MyTest", "responseBody  $responseBody")
                 // проверим успешно ли выполнился запрос в сеть
                 Log.d("MyTest", "response successful = ${response.isSuccessful}")
             } catch (e: IOException) {
                 Log.d("MyTest", "execute request error = ${e.message}", e)
+                callback(null)
             }
         }.start()
+    }
+
+    fun parseMovieResponse(responseBodyString: String): ResponseWeather? {
+        return try {
+            // создадим объект Object у него уже сможем обращаться к вложенным полям
+            // также стоит отметить responseBodyString может придти в не корректном формате
+            val jsonObject = JSONObject(responseBodyString)
+            val weatherDescription = jsonObject.getJSONObject("weather")
+                .getString("description")
+            val tempMin = jsonObject.getJSONObject("main").getDouble("temp_min")
+            val tempMax = jsonObject.getJSONObject("main").getDouble("temp_max")
+
+            ResponseWeather(Main(tempMin, tempMax), weatherDescription)
+        } catch (e: JSONException) {
+            Log.d("MyTest", "parse response error = ${e.message}", e)
+            null
+        }
     }
 }
