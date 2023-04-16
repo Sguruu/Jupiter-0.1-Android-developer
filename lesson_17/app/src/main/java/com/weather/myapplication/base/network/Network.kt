@@ -5,13 +5,17 @@ import okhttp3.Call
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.logging.HttpLoggingInterceptor
 
 private const val API_KEY = "a552b39b529b0402a3b40d2affee9ef4"
 private const val LANG = "ru"
 private const val UNITS = "metric"
 
 object Network {
-    private val client = OkHttpClient()
+    private val client = OkHttpClient.Builder()
+        // добавление network Interceptor
+        .addNetworkInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+        .build()
 
     fun getWeatherCall(lat: String, lon: String): Call {
         // https://api.openweathermap.org/data/2.5/weather?lat={{lat}}&lon={{lon}}&appid={{API_KEY}}&lang=ru&units=metric
