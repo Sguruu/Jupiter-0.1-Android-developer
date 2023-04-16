@@ -14,4 +14,8 @@ class ListViewModel : ViewModel() {
     private fun updateCityList(listCity: List<City>) {
         _cityListLiveData.postValue(listCity)
     }
+
+    fun test() {
+        repository.requestWeather("37.6024","37.6024")
+    }
 }

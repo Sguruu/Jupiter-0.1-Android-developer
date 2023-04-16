@@ -1,8 +1,11 @@
 package com.weather.myapplication.model.repository
 
+import android.util.Log
 import com.weather.myapplication.R
 import com.weather.myapplication.base.App
+import com.weather.myapplication.base.network.Network
 import com.weather.myapplication.model.model.City
+import java.io.IOException
 
 class WeatherRepository {
     fun createListCity(): List<City> {
@@ -36,5 +39,20 @@ class WeatherRepository {
 
     fun responseWeather() {}
 
-    fun requestWeather() {}
+    fun requestWeather(lat: String, lon: String) {
+        // совершим запрос синхронно
+        Thread {
+            try {
+                // создание вызова
+                val response = Network.getWeatherCall(lat, lon)
+                    // выполнение вызова, также он возвращает ответ от сервера
+                    .execute()
+
+                // проверим успешно ли выполнился запрос в сеть
+                Log.d("MyTest", "response successful = ${response.isSuccessful}")
+            } catch (e: IOException) {
+                Log.d("MyTest", "execute request error = ${e.message}", e)
+            }
+        }.start()
+    }
 }
