@@ -59,15 +59,15 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         viewModel.responseWeatherLiveData.observe(viewLifecycleOwner) {
             binding.descriptionTextView.text = resources.getString(
                 R.string.forecast,
-                it.description
+                it.descriptionWeather
             )
             binding.minTextView.text = resources.getString(
                 R.string.min_c,
-                it.main.temp_min.toString()
+                it.tempMin.toString()
             )
             binding.maxTextView.text = resources.getString(
                 R.string.max_c,
-                it.main.temp_max.toString()
+                it.tempMax.toString()
             )
         }
     }

@@ -1,13 +1,14 @@
 package com.weather.myapplication.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.weather.myapplication.model.model.ResponseWeather
+import com.weather.myapplication.model.model.Weather
 import com.weather.myapplication.model.repository.WeatherRepository
 import okhttp3.Call
 
 class InfoViewModel : ViewModel() {
-    private val _weatherLiveData = MutableLiveData<ResponseWeather>()
+    private val _weatherLiveData = MutableLiveData<Weather>()
     val responseWeatherLiveData
         get() = _weatherLiveData
 
@@ -23,7 +24,7 @@ class InfoViewModel : ViewModel() {
         }
     }
 
-    private fun updateWeatherLiveData(value: ResponseWeather) {
+    private fun updateWeatherLiveData(value: Weather) {
         _weatherLiveData.postValue(value)
         currentCall = null
     }

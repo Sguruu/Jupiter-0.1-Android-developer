@@ -1,17 +1,16 @@
 package com.weather.myapplication.model.repository
 
 import android.util.Log
+import com.squareup.moshi.Moshi
 import com.weather.myapplication.R
 import com.weather.myapplication.base.App
 import com.weather.myapplication.base.network.Network
 import com.weather.myapplication.model.model.City
-import com.weather.myapplication.model.model.Main
 import com.weather.myapplication.model.model.ResponseWeather
+import com.weather.myapplication.model.model.Weather
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.Response
-import org.json.JSONException
-import org.json.JSONObject
 import java.io.IOException
 
 class WeatherRepository {
@@ -47,7 +46,7 @@ class WeatherRepository {
     fun requestWeather(
         lat: String,
         lon: String,
-        callback: (responseWeather: ResponseWeather?) -> Unit
+        callback: (weather: Weather?) -> Unit
     ): Call {
         // запрос асинхронно
         return Network.getWeatherCall(lat, lon).apply {
@@ -67,8 +66,16 @@ class WeatherRepository {
                             .execute()
                         // возвращает тело ответа
                         val responseBody = response.body?.string().orEmpty()
-                        val responseWeather = parseMovieResponse(responseBody)
-                        callback.invoke(responseWeather)
+
+                        val weather = parseMovieResponse(responseBody)?.let {
+                            Weather(
+                                it.main.tempMin,
+                                it.main.tempMax,
+                                it.weatherCurrent[0].description
+                            )
+                        }
+
+                        callback.invoke(weather)
                         Log.d("MyTest", "responseBody  $responseBody")
                         // проверим успешно ли выполнился запрос в сеть
                         Log.d("MyTest", "response successful = ${response.isSuccessful}")
@@ -78,45 +85,22 @@ class WeatherRepository {
                 }
             })
         }
-
-        // совершим запрос синхронно
-//        Thread {
-//            try {
-//                // создание вызова
-//                val response = Network.getWeatherCall(lat, lon)
-//                    // выполнение вызова, также он возвращает ответ от сервера
-//                    .execute()
-//
-//                // возвращает тело ответа
-//                val responseBody = response.body?.string().orEmpty()
-//                val responseWeather = parseMovieResponse(responseBody)
-//                callback(responseWeather)
-//                Log.d("MyTest", "responseBody  $responseBody")
-//                // проверим успешно ли выполнился запрос в сеть
-//                Log.d("MyTest", "response successful = ${response.isSuccessful}")
-//            } catch (e: IOException) {
-//                Log.d("MyTest", "execute request error = ${e.message}", e)
-//                callback(null)
-//            }
-//        }.start()
     }
 
     private fun parseMovieResponse(responseBodyString: String): ResponseWeather? {
-        Log.d("MyTest", "test1")
-        return try {
-            // создадим объект Object у него уже сможем обращаться к вложенным полям
-            // также стоит отметить responseBodyString может придти в не корректном формате
-            val jsonObject = JSONObject(responseBodyString)
-            val weatherArray = jsonObject.getJSONArray("weather")
+        val moshi = Moshi.Builder().build()
 
-            val description = weatherArray.getJSONObject(0).getString("description")
-            val tempMin = jsonObject.getJSONObject("main").getDouble("temp_min")
-            val tempMax = jsonObject.getJSONObject("main").getDouble("temp_max")
+        // далее нам нужно создать адаптер для связи данных из JSON с нашим классом
+        // .nonNull Возвращает адаптер JSON, эквивалентный этому адаптеру JSON, но не допускающий
+        // пустых значений. Если значение null прочитано или записано, это вызовет исключение JsonDataException.
+        val adapter = moshi.adapter(ResponseWeather::class.java).nonNull()
 
-            return ResponseWeather(Main(tempMin, tempMax), description)
-        } catch (e: JSONException) {
-            Log.d("MyTest", "parse response error = ${e.message}", e)
-            null
+        try {
+            // может выкинуть ошибку при некорректном JSON или не удалось распарсить JSON
+            val responseWeather: ResponseWeather? = adapter.fromJson(responseBodyString)
+            return responseWeather
+        } catch (e: java.lang.Exception) {
+            return null
         }
     }
 }
