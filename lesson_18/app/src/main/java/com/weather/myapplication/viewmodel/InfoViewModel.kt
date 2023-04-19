@@ -1,6 +1,5 @@
 package com.weather.myapplication.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.weather.myapplication.model.model.Weather
@@ -22,6 +21,10 @@ class InfoViewModel : ViewModel() {
                 updateWeatherLiveData(it)
             }
         }
+    }
+
+    fun convertWeatherToJson(value: Weather): String {
+        return repository.convertWeatherToJson(value)
     }
 
     private fun updateWeatherLiveData(value: Weather) {

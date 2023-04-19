@@ -69,6 +69,7 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
                 R.string.max_c,
                 it.tempMax.toString()
             )
+            binding.jsonTextView.text = viewModel.convertWeatherToJson(it)
         }
     }
 

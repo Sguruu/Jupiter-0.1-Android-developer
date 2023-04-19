@@ -2,10 +2,12 @@ package com.weather.myapplication.model.repository
 
 import android.util.Log
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.adapter
 import com.weather.myapplication.R
 import com.weather.myapplication.base.App
 import com.weather.myapplication.base.network.Network
 import com.weather.myapplication.model.model.City
+import com.weather.myapplication.model.model.RequestWeather
 import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
 import okhttp3.Call
@@ -84,6 +86,24 @@ class WeatherRepository {
                     }
                 }
             })
+        }
+    }
+
+    fun convertWeatherToJson(value: Weather): String {
+        val moshi = Moshi.Builder().build()
+        val adapter = moshi.adapter(RequestWeather::class.java).nonNull()
+
+        try {
+            val jsonWeather = adapter.toJson(
+                RequestWeather(
+                    value.tempMin,
+                    value.tempMax,
+                    value.descriptionWeather
+                )
+            )
+            return jsonWeather
+        } catch (e: Exception) {
+            return e.message.toString()
         }
     }
 

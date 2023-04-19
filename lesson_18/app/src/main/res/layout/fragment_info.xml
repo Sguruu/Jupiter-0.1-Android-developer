@@ -80,4 +80,18 @@
         app:layout_constraintTop_toBottomOf="@id/descriptionTextView"
         tools:text="Макс : 6.5°C" />
 
+    <TextView
+        android:id="@+id/jsonTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/minTextView"
+        app:layout_constraintTop_toBottomOf="@id/maxTextView"
+        tools:text="JSON" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
