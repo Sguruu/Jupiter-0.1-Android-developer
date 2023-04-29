@@ -72,4 +72,12 @@ dependencies {
     компиляции.
      */
     kapt "com.squareup.moshi:moshi-kotlin-codegen:$moshiVersion"
+
+
+    //Retrofit
+    def retrofitVersion = '2.9.0'
+    // подключение самой библиотеки
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    // подключение возможности работы с библиотекой moshi
+    implementation "com.squareup.retrofit2:converter-moshi:$retrofitVersion"
 }
