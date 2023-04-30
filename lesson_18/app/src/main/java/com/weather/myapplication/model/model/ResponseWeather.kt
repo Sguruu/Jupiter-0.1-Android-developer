@@ -8,7 +8,7 @@ import com.squareup.moshi.JsonClass
 // сериализацией и десериализация, в данном случае каждое значение будет искаться по имени поля
 @JsonClass(generateAdapter = true)
 data class ResponseWeather(
-    @Json(name = "main")
+    @Json(name = "maine")
     val main: Main,
     @Json(name = "weather")
     val weatherCurrent: List<WeatherCurrent>,

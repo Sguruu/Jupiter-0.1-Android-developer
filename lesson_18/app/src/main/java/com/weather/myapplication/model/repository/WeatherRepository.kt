@@ -4,6 +4,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
 import com.weather.myapplication.R
 import com.weather.myapplication.base.App
+import com.weather.myapplication.base.Result
 import com.weather.myapplication.base.network.Network
 import com.weather.myapplication.model.model.City
 import com.weather.myapplication.model.model.RequestWeather
@@ -46,46 +47,8 @@ class WeatherRepository {
     fun requestWeather(
         lat: String,
         lon: String,
-        callback: (weather: Weather?) -> Unit
+        resultCallback: (Result<Weather>) -> Unit
     ): retrofit2.Call<ResponseWeather> {
-        // запрос асинхронно
-//        return Network.getWeatherCall(lat, lon).apply {
-//            enqueue(object : Callback {
-//                // если ошибка
-//                override fun onFailure(call: Call, e: IOException) {
-//                    Log.d("MyTest", "execute request error = ${e.message}", e)
-//                    callback.invoke(null)
-//                }
-//
-//                // если успешно
-//                override fun onResponse(call: Call, response: Response) {
-//                    // проверка что ответ от сервера успешен
-//                    if (response.isSuccessful) {
-//                        Network.getWeatherCall(lat, lon)
-//                            // выполнение вызова, также он возвращает ответ от сервера
-//                            .execute()
-//                        // возвращает тело ответа
-//                        val responseBody = response.body?.string().orEmpty()
-//
-//                        val weather = parseMovieResponse(responseBody)?.let {
-//                            Weather(
-//                                it.main.tempMin,
-//                                it.main.tempMax,
-//                                it.weatherCurrent[0].description
-//                            )
-//                        }
-//
-//                        callback.invoke(weather)
-//                        Log.d("MyTest", "responseBody  $responseBody")
-//                        // проверим успешно ли выполнился запрос в сеть
-//                        Log.d("MyTest", "response successful = ${response.isSuccessful}")
-//                    } else {
-//                        callback.invoke(null)
-//                    }
-//                }
-//            })
-//        }
-
         return Network.weatherApi.getWeather(lat, lon).apply {
             enqueue(object : Callback<ResponseWeather> {
                 // если успешно
@@ -101,15 +64,19 @@ class WeatherRepository {
                                 descriptionWeather = it.weatherCurrent[0].description
                             )
                         }
-                        callback(weather)
+
+                        weather?.let {
+                            resultCallback.invoke(Result.Success(it))
+                        }
+                            ?: resultCallback.invoke(Result.Error(RuntimeException("Ошибка парсинга")))
                     } else {
-                        callback(null)
+                        resultCallback.invoke(Result.Error(RuntimeException("Некорректный статус кода")))
                     }
                 }
 
                 // если ошибка
                 override fun onFailure(call: retrofit2.Call<ResponseWeather>, t: Throwable) {
-                    callback.invoke(null)
+                    resultCallback.invoke(Result.Error(t))
                 }
             })
         }

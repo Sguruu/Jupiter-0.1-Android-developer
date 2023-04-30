@@ -1,11 +1,7 @@
 package com.weather.myapplication.base.network
 
-import android.util.Log
 import com.weather.myapplication.base.retrofit.WeatherApi
-import okhttp3.Call
-import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -36,33 +32,4 @@ object Network {
     val weatherApi: WeatherApi
         // создает  наш интерфейс путем создания экземпляра ретрофит
         get() = retrofit.create()
-
-    fun getWeatherCall(lat: String, lon: String): Call {
-        // https://api.openweathermap.org/data/2.5/weather?lat={{lat}}&lon={{lon}}&appid={{API_KEY}}&lang=ru&units=metric
-        val url = HttpUrl.Builder()
-            .scheme("https")
-            .host("api.openweathermap.org")
-            .addPathSegment("data")
-            .addPathSegment("2.5")
-            .addPathSegment("weather")
-            .addQueryParameter("lat", lat)
-            .addQueryParameter("lon", lon)
-            .addQueryParameter("appid", API_KEY)
-            .addQueryParameter("lang", LANG)
-            .addQueryParameter("units", UNITS)
-            .build()
-
-        Log.d("MyTest", "Uri $url")
-
-        // специальный класс для создания запроса от okHttp
-        val request = Request.Builder()
-            // можно указать http метод gep/post/delete/put и тд
-            // также можно добавить заголовок с помощью addHeader
-            .get()
-            // указываем url, но его нужно сначала сконфигурировать
-            .url(url)
-            .build()
-
-        return client.newCall(request)
-    }
 }
