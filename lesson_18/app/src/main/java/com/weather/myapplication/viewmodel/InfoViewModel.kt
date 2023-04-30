@@ -2,6 +2,7 @@ package com.weather.myapplication.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
 import com.weather.myapplication.model.repository.WeatherRepository
 import okhttp3.Call
@@ -13,7 +14,7 @@ class InfoViewModel : ViewModel() {
 
     private val repository = WeatherRepository()
 
-    private var currentCall: Call? = null
+    private var currentCall: retrofit2.Call<ResponseWeather>? = null
 
     fun requestWeather(lat: String, lon: String) {
         currentCall = repository.requestWeather(lat, lon) {

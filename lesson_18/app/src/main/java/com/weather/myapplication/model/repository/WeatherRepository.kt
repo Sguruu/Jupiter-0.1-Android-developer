@@ -1,6 +1,5 @@
 package com.weather.myapplication.model.repository
 
-import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.adapter
 import com.weather.myapplication.R
@@ -11,9 +10,8 @@ import com.weather.myapplication.model.model.RequestWeather
 import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
 import okhttp3.Call
-import okhttp3.Callback
-import okhttp3.Response
-import java.io.IOException
+import retrofit2.Callback
+import retrofit2.Response
 
 class WeatherRepository {
     fun createListCity(): List<City> {
@@ -49,41 +47,69 @@ class WeatherRepository {
         lat: String,
         lon: String,
         callback: (weather: Weather?) -> Unit
-    ): Call {
+    ): retrofit2.Call<ResponseWeather> {
         // запрос асинхронно
-        return Network.getWeatherCall(lat, lon).apply {
-            enqueue(object : Callback {
-                // если ошибка
-                override fun onFailure(call: Call, e: IOException) {
-                    Log.d("MyTest", "execute request error = ${e.message}", e)
-                    callback.invoke(null)
-                }
+//        return Network.getWeatherCall(lat, lon).apply {
+//            enqueue(object : Callback {
+//                // если ошибка
+//                override fun onFailure(call: Call, e: IOException) {
+//                    Log.d("MyTest", "execute request error = ${e.message}", e)
+//                    callback.invoke(null)
+//                }
+//
+//                // если успешно
+//                override fun onResponse(call: Call, response: Response) {
+//                    // проверка что ответ от сервера успешен
+//                    if (response.isSuccessful) {
+//                        Network.getWeatherCall(lat, lon)
+//                            // выполнение вызова, также он возвращает ответ от сервера
+//                            .execute()
+//                        // возвращает тело ответа
+//                        val responseBody = response.body?.string().orEmpty()
+//
+//                        val weather = parseMovieResponse(responseBody)?.let {
+//                            Weather(
+//                                it.main.tempMin,
+//                                it.main.tempMax,
+//                                it.weatherCurrent[0].description
+//                            )
+//                        }
+//
+//                        callback.invoke(weather)
+//                        Log.d("MyTest", "responseBody  $responseBody")
+//                        // проверим успешно ли выполнился запрос в сеть
+//                        Log.d("MyTest", "response successful = ${response.isSuccessful}")
+//                    } else {
+//                        callback.invoke(null)
+//                    }
+//                }
+//            })
+//        }
 
+        return Network.weatherApi.getWeather(lat, lon).apply {
+            enqueue(object : Callback<ResponseWeather> {
                 // если успешно
-                override fun onResponse(call: Call, response: Response) {
-                    // проверка что ответ от сервера успешен
+                override fun onResponse(
+                    call: retrofit2.Call<ResponseWeather>,
+                    response: Response<ResponseWeather>
+                ) {
                     if (response.isSuccessful) {
-                        Network.getWeatherCall(lat, lon)
-                            // выполнение вызова, также он возвращает ответ от сервера
-                            .execute()
-                        // возвращает тело ответа
-                        val responseBody = response.body?.string().orEmpty()
-
-                        val weather = parseMovieResponse(responseBody)?.let {
+                        val weather = response.body()?.let {
                             Weather(
-                                it.main.tempMin,
-                                it.main.tempMax,
-                                it.weatherCurrent[0].description
+                                tempMin = it.main.tempMin,
+                                tempMax = it.main.tempMax,
+                                descriptionWeather = it.weatherCurrent[0].description
                             )
                         }
-
-                        callback.invoke(weather)
-                        Log.d("MyTest", "responseBody  $responseBody")
-                        // проверим успешно ли выполнился запрос в сеть
-                        Log.d("MyTest", "response successful = ${response.isSuccessful}")
+                        callback(weather)
                     } else {
-                        callback.invoke(null)
+                        callback(null)
                     }
+                }
+
+                // если ошибка
+                override fun onFailure(call: retrofit2.Call<ResponseWeather>, t: Throwable) {
+                    callback.invoke(null)
                 }
             })
         }
