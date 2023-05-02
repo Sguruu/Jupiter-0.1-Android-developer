@@ -49,15 +49,17 @@ class InfoViewModel : ViewModel() {
             Log.d("MyTest", "текущий поток ${Thread.currentThread().name}")
         }
 
-        fragmentScope.launch {
-            while (true) {
-                // задержка корутины на 1 сек
-                delay(1000)
-                Log.d("MyTest", "текущий поток 2 ${Thread.currentThread().name}")
-            }
-        }
+//        fragmentScope.launch {
+//            while (true) {
+//                // задержка корутины на 1 сек
+//                delay(1000)
+//                Log.d("MyTest", "текущий поток 2 ${Thread.currentThread().name}")
+//            }
+//        }
 
         Log.d("MyTest", "корутина была запущена ${Thread.currentThread().name}")
+
+        exampleFlowSwitching()
     }
 
     suspend fun calculateNumber(): Int {
@@ -66,6 +68,17 @@ class InfoViewModel : ViewModel() {
         return withContext(Dispatchers.Default) {
             Log.d("MyTest", "поток выполнения calculateNumber${Thread.currentThread().name}")
             5
+        }
+    }
+
+    // демонстрация переключения потока
+    private fun exampleFlowSwitching() {
+        CoroutineScope(Dispatchers.IO).launch {
+            (0..200).forEach {
+                Log.d("MyTest", "Старт выполнения потока ${Thread.currentThread().name}")
+                delay(100)
+                Log.d("MyTest", "Конец выполнения потока ${Thread.currentThread().name}")
+            }
         }
     }
 
