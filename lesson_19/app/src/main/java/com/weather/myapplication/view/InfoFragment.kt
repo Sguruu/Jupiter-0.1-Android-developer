@@ -48,6 +48,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         imageLink?.let {
             renderView(it)
         }
+
+        viewModel.startExampleCoroutines()
     }
 
     override fun onDestroyView() {
