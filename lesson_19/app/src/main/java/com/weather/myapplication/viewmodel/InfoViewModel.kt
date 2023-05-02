@@ -8,6 +8,9 @@ import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
 import com.weather.myapplication.model.repository.WeatherRepository
 import kotlinx.coroutines.*
+import java.math.BigInteger
+import kotlin.random.Random
+import kotlin.random.asJavaRandom
 
 class InfoViewModel : ViewModel() {
     private val _weatherLiveData = MutableLiveData<Weather>()
@@ -47,27 +50,24 @@ class InfoViewModel : ViewModel() {
 
         fragmentScope.launch {
             Log.d("MyTest", "текущий поток ${Thread.currentThread().name}")
+            asyncExample()
         }
-
-//        fragmentScope.launch {
-//            while (true) {
-//                // задержка корутины на 1 сек
-//                delay(1000)
-//                Log.d("MyTest", "текущий поток 2 ${Thread.currentThread().name}")
-//            }
-//        }
-
-        Log.d("MyTest", "корутина была запущена ${Thread.currentThread().name}")
-
-        exampleFlowSwitching()
     }
 
-    suspend fun calculateNumber(): Int {
+    private suspend fun calculateNumber(): BigInteger {
         // чтобы превратить обычную функцию в suspend функцию можно использовать метод withContext
         // он позволяет изменить диспетчер для какого то блока кода
         return withContext(Dispatchers.Default) {
             Log.d("MyTest", "поток выполнения calculateNumber${Thread.currentThread().name}")
-            5
+            /*
+        Возвращает положительное значение BigInteger, которое, вероятно, является простым числом с указанной длиной бита. Вероятность того, что BigInteger, возвращаемый этим методом, является составным, не превышает 2-100.
+        Параметры:
+        bitLength — битовая длина возвращенного BigInteger.
+        rnd — источник случайных битов, используемых для выбора кандидатов для проверки на простоту.
+        Возвращает:
+        BigInteger битов bitLength, который, вероятно, является простым
+             */
+            BigInteger.probablePrime(4000, Random.asJavaRandom())
         }
     }
 
@@ -79,6 +79,32 @@ class InfoViewModel : ViewModel() {
                 delay(100)
                 Log.d("MyTest", "Конец выполнения потока ${Thread.currentThread().name}")
             }
+        }
+    }
+
+    // async - запускает корутину и позволяет получить результат по окончании выполнения
+    private fun asyncExample() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val start = System.currentTimeMillis()
+            // Deferred это объект который возвращает результат по окончании выполнения корутины
+            val deferredResult1: Deferred<BigInteger> = async {
+                calculateNumber()
+            }
+            val deferredResult2: Deferred<BigInteger> = async {
+                calculateNumber()
+            }
+
+            val result1 = deferredResult1.await()
+            val result2 = deferredResult1.await()
+
+            // проверить работает ли корутина или нет
+            // deferredResult.isActive
+            // проверить выполнена ли корутина
+            //  deferredResult.isCompleted
+            // получение результата после завершения, может быть вызван только в suspend
+            // deferredResult.await()
+            val end = System.currentTimeMillis()
+            Log.d("MyTest", "время запуска = ${end - start}")
         }
     }
 
