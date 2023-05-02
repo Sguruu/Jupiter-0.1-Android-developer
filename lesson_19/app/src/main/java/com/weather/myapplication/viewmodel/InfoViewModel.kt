@@ -7,10 +7,7 @@ import com.weather.myapplication.base.Result
 import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
 import com.weather.myapplication.model.repository.WeatherRepository
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class InfoViewModel : ViewModel() {
     private val _weatherLiveData = MutableLiveData<Weather>()
@@ -52,7 +49,24 @@ class InfoViewModel : ViewModel() {
             Log.d("MyTest", "текущий поток ${Thread.currentThread().name}")
         }
 
+        fragmentScope.launch {
+            while (true) {
+                // задержка корутины на 1 сек
+                delay(1000)
+                Log.d("MyTest", "текущий поток 2 ${Thread.currentThread().name}")
+            }
+        }
+
         Log.d("MyTest", "корутина была запущена ${Thread.currentThread().name}")
+    }
+
+    suspend fun calculateNumber(): Int {
+        // чтобы превратить обычную функцию в suspend функцию можно использовать метод withContext
+        // он позволяет изменить диспетчер для какого то блока кода
+        return withContext(Dispatchers.Default) {
+            Log.d("MyTest", "поток выполнения calculateNumber${Thread.currentThread().name}")
+            5
+        }
     }
 
     private fun updateWeatherLiveData(value: Weather) {
