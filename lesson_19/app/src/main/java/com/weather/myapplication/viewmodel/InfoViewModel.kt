@@ -41,6 +41,17 @@ class InfoViewModel : ViewModel() {
         return repository.convertWeatherToJson(value)
     }
 
+    private fun updateWeatherLiveData(value: Weather) {
+        _weatherLiveData.postValue(value)
+        currentCall = null
+    }
+
+    override fun onCleared() {
+        super.onCleared()
+        currentCall?.cancel()
+    }
+
+    /* start test coroutines */
     fun startExampleCoroutines() {
         // использовать глобальный скоуп не рекомендуется, так как мы не можем влиять на него
         GlobalScope.launch {
@@ -107,14 +118,5 @@ class InfoViewModel : ViewModel() {
             Log.d("MyTest", "время запуска = ${end - start}")
         }
     }
-
-    private fun updateWeatherLiveData(value: Weather) {
-        _weatherLiveData.postValue(value)
-        currentCall = null
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        currentCall?.cancel()
-    }
+    /* end test coroutines */
 }
