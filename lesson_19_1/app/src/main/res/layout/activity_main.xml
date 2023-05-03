@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/crashButton"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="@string/crash_when_calling_a_coroutine" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <Button
+        android:id="@+id/errorHandlingButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Обработка ошибки корутины" />
+
+
+    <Button
+        android:id="@+id/errorCoroutineExceptionHandlerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Обработка ошибки корутины c помощью CoroutineExceptionHandler" />
+
+    <Button
+        android:id="@+id/cancelParentCoroutineErrorButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Отмена родительской корутины при ошибке" />
+
+    <Button
+        android:id="@+id/supervisorJobButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Обработка отмены родительской корутины при ошибке" />
+
+    <Button
+        android:id="@+id/blockThreadCoroutineJobButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Запустить корутину блокирующую поток" />
+
+    <Button
+        android:id="@+id/cancelBlockThreadCoroutineJobButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Отменить корутину блокирующую поток" />
+
+
+</LinearLayout>

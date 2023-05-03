@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">LS_19_1</string>
+    <string name="crash_when_calling_a_coroutine">Краш при вызове корутины</string>
 </resources>
