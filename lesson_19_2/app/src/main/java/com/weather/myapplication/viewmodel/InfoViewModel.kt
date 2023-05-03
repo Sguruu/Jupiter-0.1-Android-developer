@@ -19,24 +19,18 @@ class InfoViewModel : ViewModel() {
 
     private var currentCall: retrofit2.Call<ResponseWeather>? = null
 
-    // Dispatchers.Main - главный поток
-    private val fragmentScope = CoroutineScope(Dispatchers.Main)
-
     fun requestWeather(lat: String, lon: String) {
         viewModelScope.launch {
-            try {
-                repository.requestWeather(lat, lon).apply {
-                    when (this) {
-                        is Result.Success<Weather> -> {
-                            updateWeatherLiveData(this.data)
-                        }
-                        is Result.Error -> {
-                            // тут обрабатываем ошибку
-                        }
+            repository.requestWeather(lat, lon).apply {
+                when (this) {
+                    is Result.Success<Weather> -> {
+                        updateWeatherLiveData(this.data)
+                    }
+                    is Result.Error -> {
+                        // тут обрабатываем ошибку
+                        Log.d("MyTest", "Обработка ошибки∆")
                     }
                 }
-            } catch (t: Throwable) {
-                Log.d("MyTest", "error", t)
             }
         }
     }

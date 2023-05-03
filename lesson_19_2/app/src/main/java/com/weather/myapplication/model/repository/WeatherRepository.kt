@@ -10,11 +10,8 @@ import com.weather.myapplication.model.model.City
 import com.weather.myapplication.model.model.RequestWeather
 import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
-import retrofit2.Callback
-import retrofit2.Response
-import kotlin.coroutines.resume
-import kotlin.coroutines.resumeWithException
-import kotlin.coroutines.suspendCoroutine
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 class WeatherRepository {
     fun createListCity(): List<City> {
@@ -50,39 +47,20 @@ class WeatherRepository {
         lat: String,
         lon: String
     ): Result<Weather> {
-        return suspendCoroutine { continuation ->
-            Network.weatherApi.getWeather(lat, lon).apply {
-                enqueue(object : Callback<ResponseWeather> {
-                    // если успешно
-                    override fun onResponse(
-                        call: retrofit2.Call<ResponseWeather>,
-                        response: Response<ResponseWeather>
-                    ) {
-                        if (response.isSuccessful) {
-                            val weather = response.body()?.let {
-                                Weather(
-                                    tempMin = it.main.tempMin,
-                                    tempMax = it.main.tempMax,
-                                    descriptionWeather = it.weatherCurrent[0].description
-                                )
-                            }
-
-                            weather?.let {
-                                // блок кода который мы должны вернуть, важно если не вернем continuation
-                                // корутина никогда не остановится и приложение зависнит
-                                continuation.resume(Result.Success(it))
-                            }
-                                ?: continuation.resume(Result.Error(RuntimeException("Ошибка парсинга")))
-                        } else {
-                            continuation.resumeWithException(RuntimeException("Ошибка ответа"))
-                        }
-                    }
-
-                    // если ошибка
-                    override fun onFailure(call: retrofit2.Call<ResponseWeather>, t: Throwable) {
-                        continuation.resumeWithException(t)
-                    }
-                })
+        // укажем в каком потоке у нас будет происходить запрос (это не обязательно в случае работы с
+        // retrofit, так как он под капотом все делает за нас
+        return withContext(Dispatchers.IO) {
+            try {
+                val weather = Network.weatherApi.getWeather(lat, lon).let {
+                    Weather(
+                        it.main.tempMin,
+                        it.main.tempMax,
+                        it.weatherCurrent[0].description
+                    )
+                }
+                Result.Success(weather)
+            } catch (e: Throwable) {
+                Result.Error(e)
             }
         }
     }
