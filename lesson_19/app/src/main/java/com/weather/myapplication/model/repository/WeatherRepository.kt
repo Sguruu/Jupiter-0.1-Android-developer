@@ -10,9 +10,11 @@ import com.weather.myapplication.model.model.City
 import com.weather.myapplication.model.model.RequestWeather
 import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
-import okhttp3.Call
 import retrofit2.Callback
 import retrofit2.Response
+import kotlin.coroutines.resume
+import kotlin.coroutines.resumeWithException
+import kotlin.coroutines.suspendCoroutine
 
 class WeatherRepository {
     fun createListCity(): List<City> {
@@ -44,41 +46,44 @@ class WeatherRepository {
         )
     }
 
-    fun requestWeather(
+    suspend fun requestWeather(
         lat: String,
-        lon: String,
-        resultCallback: (Result<Weather>) -> Unit
-    ): retrofit2.Call<ResponseWeather> {
-        return Network.weatherApi.getWeather(lat, lon).apply {
-            enqueue(object : Callback<ResponseWeather> {
-                // если успешно
-                override fun onResponse(
-                    call: retrofit2.Call<ResponseWeather>,
-                    response: Response<ResponseWeather>
-                ) {
-                    if (response.isSuccessful) {
-                        val weather = response.body()?.let {
-                            Weather(
-                                tempMin = it.main.tempMin,
-                                tempMax = it.main.tempMax,
-                                descriptionWeather = it.weatherCurrent[0].description
-                            )
-                        }
+        lon: String
+    ): Result<Weather> {
+        return suspendCoroutine { continuation ->
+            Network.weatherApi.getWeather(lat, lon).apply {
+                enqueue(object : Callback<ResponseWeather> {
+                    // если успешно
+                    override fun onResponse(
+                        call: retrofit2.Call<ResponseWeather>,
+                        response: Response<ResponseWeather>
+                    ) {
+                        if (response.isSuccessful) {
+                            val weather = response.body()?.let {
+                                Weather(
+                                    tempMin = it.main.tempMin,
+                                    tempMax = it.main.tempMax,
+                                    descriptionWeather = it.weatherCurrent[0].description
+                                )
+                            }
 
-                        weather?.let {
-                            resultCallback.invoke(Result.Success(it))
+                            weather?.let {
+                                // блок кода который мы должны вернуть, важно если не вернем continuation
+                                // корутина никогда не остановится и приложение зависнит
+                                continuation.resume(Result.Success(it))
+                            }
+                                ?: continuation.resume(Result.Error(RuntimeException("Ошибка парсинга")))
+                        } else {
+                            continuation.resumeWithException(RuntimeException("Ошибка ответа"))
                         }
-                            ?: resultCallback.invoke(Result.Error(RuntimeException("Ошибка парсинга")))
-                    } else {
-                        resultCallback.invoke(Result.Error(RuntimeException("Некорректный статус кода")))
                     }
-                }
 
-                // если ошибка
-                override fun onFailure(call: retrofit2.Call<ResponseWeather>, t: Throwable) {
-                    resultCallback.invoke(Result.Error(t))
-                }
-            })
+                    // если ошибка
+                    override fun onFailure(call: retrofit2.Call<ResponseWeather>, t: Throwable) {
+                        continuation.resumeWithException(t)
+                    }
+                })
+            }
         }
     }
 

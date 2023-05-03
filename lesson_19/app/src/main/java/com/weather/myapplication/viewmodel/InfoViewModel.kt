@@ -3,6 +3,7 @@ package com.weather.myapplication.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.weather.myapplication.base.Result
 import com.weather.myapplication.model.model.ResponseWeather
 import com.weather.myapplication.model.model.Weather
@@ -25,14 +26,20 @@ class InfoViewModel : ViewModel() {
     private val fragmentScope = CoroutineScope(Dispatchers.Main)
 
     fun requestWeather(lat: String, lon: String) {
-        currentCall = repository.requestWeather(lat, lon) {
-            when (it) {
-                is Result.Success<Weather> -> {
-                    updateWeatherLiveData(it.data)
+        viewModelScope.launch {
+            try {
+                repository.requestWeather(lat, lon).apply {
+                    when (this) {
+                        is Result.Success<Weather> -> {
+                            updateWeatherLiveData(this.data)
+                        }
+                        is Result.Error -> {
+                            // тут обрабатываем ошибку
+                        }
+                    }
                 }
-                is Result.Error -> {
-                    // тут обрабатываем ошибку
-                }
+            } catch (t: Throwable) {
+                Log.d("MyTest", "error", t)
             }
         }
     }
