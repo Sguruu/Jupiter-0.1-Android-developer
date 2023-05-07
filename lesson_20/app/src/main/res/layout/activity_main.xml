@@ -18,13 +18,20 @@
         android:id="@+id/cacheDirButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="cacheDir" />
+        android:text="cache_Dir" />
 
     <Button
         android:id="@+id/fileDirButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="fileDir" />
+        android:text="file_Dir" />
+
+
+    <Button
+        android:id="@+id/externalFileDirButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="external_File_Dir" />
 
 
 </LinearLayout>

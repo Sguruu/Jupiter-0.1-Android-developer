@@ -2,6 +2,7 @@ package com.weather.myapplication
 
 import android.media.MediaPlayer
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.myapplication.databinding.ActivityMainBinding
@@ -67,6 +68,10 @@ class MainActivity : AppCompatActivity() {
         binding.fileDirButton.setOnClickListener {
             fileDirClick()
         }
+
+        binding.externalFileDirButton.setOnClickListener {
+            externalStorage()
+        }
     }
 
     private fun fileDirClick() {
@@ -100,6 +105,26 @@ class MainActivity : AppCompatActivity() {
             runCatching {
                 cacheFile.outputStream().buffered().use {
                     it.write("Content in cache file".toByteArray())
+                }
+            }
+        }
+    }
+
+    private fun externalStorage() {
+        CoroutineScope(Dispatchers.IO).launch {
+            // проверка на сосояние, если условие верно то мы выходим из выполнения корутины
+            if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) return@launch
+
+            // работа с external Storage
+            // получаем путь к папке
+            val testFolder = this@MainActivity.getExternalFilesDir("testFolder")
+            // создаем файл в папке
+            val testFile = File(testFolder, "external_test_file.txt")
+
+            runCatching {
+                // создаем текс в файле
+                testFile.outputStream().buffered().use {
+                    it.write("Content in file".toByteArray())
                 }
             }
         }
