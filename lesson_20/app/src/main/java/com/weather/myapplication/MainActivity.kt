@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.weather.myapplication.databinding.ActivityMainBinding
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
@@ -51,5 +52,18 @@ class MainActivity : AppCompatActivity() {
                 }
             Log.d("MyTest", "text open $text")
         }
+
+        // сохраним файл в папку кеша
+        val cacheDir = this.cacheDir
+        // вывод в Log абсолютного пути папки кеша
+        Log.d("MyTest", "cacheDir path = ${cacheDir.absolutePath}")
+
+        // запись файла в папку с кешом
+        val cacheFile = File(cacheDir, "test_cache,text")
+        try {
+            cacheFile.outputStream().buffered().use {
+                it.write("Content in cache file".toByteArray())
+            }
+        } catch (t: Throwable){}
     }
 }
