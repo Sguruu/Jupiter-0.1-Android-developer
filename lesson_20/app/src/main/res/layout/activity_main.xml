@@ -14,4 +14,17 @@
         android:layout_height="wrap_content"
         android:text="Включить музыку" />
 
+    <Button
+        android:id="@+id/cacheDirButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="cacheDir" />
+
+    <Button
+        android:id="@+id/fileDirButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="fileDir" />
+
+
 </LinearLayout>

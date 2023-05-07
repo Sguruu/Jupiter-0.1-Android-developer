@@ -60,6 +60,34 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        binding.cacheDirButton.setOnClickListener {
+            cacheDirClick()
+        }
+
+        binding.fileDirButton.setOnClickListener {
+            fileDirClick()
+        }
+    }
+
+    private fun fileDirClick() {
+        // lifecycleScope
+        CoroutineScope(Dispatchers.IO).launch {
+            // сохраним файл в папку кеша
+            val fileDir = this@MainActivity.filesDir
+            // вывод в Log абсолютного пути папки кеша
+            Log.d("MyTest", "fileDir path = ${fileDir.absolutePath}")
+
+            // запись файла в папку с кешом
+            val file = File(fileDir, "test_file,text")
+            runCatching {
+                file.outputStream().buffered().use {
+                    it.write("Content in file".toByteArray())
+                }
+            }
+        }
+    }
+
+    private fun cacheDirClick() {
         // lifecycleScope
         CoroutineScope(Dispatchers.IO).launch {
             // сохраним файл в папку кеша
