@@ -11,6 +11,7 @@ import com.weather.myapplication.databinding.ActivityMainBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 class MainActivity : AppCompatActivity() {
@@ -84,6 +85,24 @@ class MainActivity : AppCompatActivity() {
 
         binding.saveButton.setOnClickListener {
             saveSharedPreferences()
+        }
+
+        binding.loadButton.setOnClickListener {
+            loadSharePreferences()
+        }
+    }
+
+    private fun loadSharePreferences() {
+        CoroutineScope(Dispatchers.IO).launch {
+            val saveText = sharedPrefs.getString(
+                // ключ
+                KEY_TEXT,
+                // значение по умолчанию если ответа не будет
+                null
+            )
+            withContext(Dispatchers.Main) {
+                binding.editText.setText(saveText)
+            }
         }
     }
 
