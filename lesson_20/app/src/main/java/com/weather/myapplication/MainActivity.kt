@@ -1,5 +1,7 @@
 package com.weather.myapplication
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Environment
@@ -13,6 +15,13 @@ import java.io.File
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    // первый параметр имя файла, второй параметр режим работы
+    // получим SharedPreferences
+    private val sharedPrefs: SharedPreferences by lazy {
+        this.getSharedPreferences(SHARED_PREFS_NAME, Context.MODE_PRIVATE)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -72,6 +81,25 @@ class MainActivity : AppCompatActivity() {
         binding.externalFileDirButton.setOnClickListener {
             externalStorage()
         }
+
+        binding.saveButton.setOnClickListener {
+            saveSharedPreferences()
+        }
+    }
+
+    private fun saveSharedPreferences() {
+        CoroutineScope(Dispatchers.IO).launch {
+            // получаем значения текста для сохранения из editText
+            val textToSave = binding.editText.text.toString()
+            // запишем наши данные
+            sharedPrefs.edit()
+                // отправка данных на сохранения, первый параметр ключ, второй значений
+                .putString(KEY_TEXT, textToSave)
+                // синхронизируем данные можно для этого использовать два метода apply/commit
+                .apply()
+
+            binding.editText.setText("")
+        }
     }
 
     private fun fileDirClick() {
@@ -128,5 +156,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        private const val SHARED_PREFS_NAME = "SHARED_PREFS_NAME"
+        private const val KEY_TEXT = "KEY_TEXT"
     }
 }
