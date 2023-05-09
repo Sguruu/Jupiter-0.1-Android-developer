@@ -5,17 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.weather.myapplication.R
 import com.weather.myapplication.databinding.FragmentInfoBinding
 import com.weather.myapplication.viewmodel.InfoViewModel
+import com.weather.myapplication.viewmodel.MainActivityViewModel
 
 class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
     private val viewModel: InfoViewModel by viewModels()
+    private val activityViewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -48,6 +51,8 @@ class InfoFragment : Fragment(R.layout.fragment_info) {
         imageLink?.let {
             renderView(it)
         }
+
+        activityViewModel.updateIsVisibleSearchAction(false)
     }
 
     override fun onDestroyView() {

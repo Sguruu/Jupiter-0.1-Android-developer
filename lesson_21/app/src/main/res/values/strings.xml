@@ -8,4 +8,10 @@
     <string name="max_c">Макс : %1$s °C</string>
     <string name="forecast">Прогноз : %1$s</string>
     <string name="weather_forecast">Прогноз погоды</string>
+    <string name="add_city">Добавить город</string>
+    <string name="delete_city">Удалить город</string>
+    <string name="search_city">Найти город</string>
+    <string name="city_place_name">Название города/места</string>
+    <string name="lon">Долгота</string>
+    <string name="lat">Широта</string>
 </resources>

@@ -31,4 +31,9 @@
             android:name="imageLink"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/addFragment"
+        android:name="com.weather.myapplication.view.AddFragment"
+        android:label="AddFragment"
+        tools:layout="@layout/fragment_add" />
 </navigation>

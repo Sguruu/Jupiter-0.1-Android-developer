@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,12 +15,14 @@ import com.weather.myapplication.R
 import com.weather.myapplication.databinding.FragmentListBinding
 import com.weather.myapplication.view.adapter.ListWeatherAdapter
 import com.weather.myapplication.viewmodel.ListViewModel
+import com.weather.myapplication.viewmodel.MainActivityViewModel
 
 class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private var adapter: ListWeatherAdapter? = null
     private val viewModel: ListViewModel by viewModels()
+    private val activityViewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,6 +38,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         super.onViewCreated(view, savedInstanceState)
         initList()
         observeViewModelState()
+        activityViewModel.updateIsVisibleSearchAction(true)
     }
 
     override fun onDestroyView() {
