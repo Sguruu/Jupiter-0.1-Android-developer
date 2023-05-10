@@ -5,9 +5,9 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weather.myapplication.base.Result
-import com.weather.myapplication.model.model.ResponseWeather
-import com.weather.myapplication.model.model.Weather
-import com.weather.myapplication.model.repository.WeatherRepository
+import com.weather.myapplication.base.network.model.ResponseWeather
+import com.weather.myapplication.model.Weather
+import com.weather.myapplication.repository.WeatherRepository
 import kotlinx.coroutines.*
 
 class InfoViewModel : ViewModel() {

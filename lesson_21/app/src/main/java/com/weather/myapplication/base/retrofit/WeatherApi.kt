@@ -1,7 +1,7 @@
 package com.weather.myapplication.base.retrofit
 
 import com.weather.myapplication.base.network.Network
-import com.weather.myapplication.model.model.ResponseWeather
+import com.weather.myapplication.base.network.model.ResponseWeather
 import retrofit2.http.GET
 import retrofit2.http.Query
 

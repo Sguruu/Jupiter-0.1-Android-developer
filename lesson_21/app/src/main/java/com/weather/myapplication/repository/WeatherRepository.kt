@@ -1,15 +1,14 @@
-package com.weather.myapplication.model.repository
+package com.weather.myapplication.repository
 
 import com.squareup.moshi.Moshi
-import com.squareup.moshi.adapter
 import com.weather.myapplication.R
 import com.weather.myapplication.base.App
 import com.weather.myapplication.base.Result
 import com.weather.myapplication.base.network.Network
-import com.weather.myapplication.model.model.City
-import com.weather.myapplication.model.model.RequestWeather
-import com.weather.myapplication.model.model.ResponseWeather
-import com.weather.myapplication.model.model.Weather
+import com.weather.myapplication.model.City
+import com.weather.myapplication.base.network.model.RequestWeather
+import com.weather.myapplication.base.network.model.ResponseWeather
+import com.weather.myapplication.model.Weather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 

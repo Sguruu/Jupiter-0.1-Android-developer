@@ -2,8 +2,8 @@ package com.weather.myapplication.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.weather.myapplication.model.model.City
-import com.weather.myapplication.model.repository.WeatherRepository
+import com.weather.myapplication.model.City
+import com.weather.myapplication.repository.WeatherRepository
 
 class ListViewModel : ViewModel() {
     private val repository = WeatherRepository()
