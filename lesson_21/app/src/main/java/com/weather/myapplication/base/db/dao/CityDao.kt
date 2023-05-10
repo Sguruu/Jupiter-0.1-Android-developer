@@ -1,6 +1,7 @@
 package com.weather.myapplication.base.db.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
 import androidx.room.Query
 import com.weather.myapplication.base.db.models.CityContract
 import com.weather.myapplication.base.db.models.CityEntity
@@ -13,4 +14,10 @@ interface CityDao {
      */
     @Query("SELECT * FROM ${CityContract.TABLE_NAME}")
     suspend fun getAllCity(): List<CityEntity>
+
+    /**
+     * Метод добавление городов
+     */
+    @Insert()
+    suspend fun insertCity(cites: List<CityEntity>)
 }

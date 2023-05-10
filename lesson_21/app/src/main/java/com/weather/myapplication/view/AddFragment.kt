@@ -16,14 +16,18 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import com.weather.myapplication.R
 import com.weather.myapplication.databinding.FragmentAddBinding
+import com.weather.myapplication.model.City
+import com.weather.myapplication.viewmodel.AddFragmentViewModel
 import com.weather.myapplication.viewmodel.MainActivityViewModel
 
 class AddFragment : Fragment(R.layout.fragment_add) {
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
     private val activityViewModel: MainActivityViewModel by activityViewModels()
+    private val viewModel: AddFragmentViewModel by viewModels()
 
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
@@ -86,7 +90,18 @@ class AddFragment : Fragment(R.layout.fragment_add) {
         }
     }
 
-    private fun saveData() {}
+    private fun saveData() {
+        viewModel.insertCites(
+            listOf(
+                City(
+                    name = binding.nameCityTextView.text.toString(),
+                    lat = binding.latTextView.text.toString(),
+                    lon = binding.lonTextView.text.toString(),
+                    imageLink = ""
+                )
+            )
+        )
+    }
 
     private fun toast(text: String) {
         Toast.makeText(requireContext(), text, Toast.LENGTH_SHORT).show()

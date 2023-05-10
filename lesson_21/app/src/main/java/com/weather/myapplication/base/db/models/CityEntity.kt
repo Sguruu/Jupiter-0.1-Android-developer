@@ -12,10 +12,10 @@ import androidx.room.PrimaryKey
 )
 data class CityEntity(
     // указание первичного ключа через аннотацию @PrimaryKey
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     // указать имя в колонке
     @ColumnInfo(CityContract.Columns.ID)
-    val id: Long,
+    val id: Long = 0,
     @ColumnInfo(CityContract.Columns.NAME)
     val name: String,
     @ColumnInfo(CityContract.Columns.LAT)

@@ -39,6 +39,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         initList()
         observeViewModelState()
         activityViewModel.updateIsVisibleSearchAction(true)
+        viewModel.getAllCity()
     }
 
     override fun onDestroyView() {

@@ -5,6 +5,7 @@ import com.weather.myapplication.R
 import com.weather.myapplication.base.App
 import com.weather.myapplication.base.Result
 import com.weather.myapplication.base.db.DataBase
+import com.weather.myapplication.base.db.models.CityEntity
 import com.weather.myapplication.base.network.Network
 import com.weather.myapplication.base.network.model.RequestWeather
 import com.weather.myapplication.base.network.model.ResponseWeather
@@ -15,10 +16,23 @@ import kotlinx.coroutines.withContext
 
 class WeatherRepository {
 
-    private val db = DataBase.instance
+    private val db = DataBase.instance.CityDao()
+
+    suspend fun insertCites(cites: List<City>) {
+        db.insertCity(
+            cites.map {
+                CityEntity(
+                    name = it.name,
+                    lat = it.lat.toDouble(),
+                    lon = it.lon.toDouble(),
+                    pathImage = it.imageLink
+                )
+            }
+        )
+    }
 
     suspend fun getAllCity(): List<City> {
-        return db.CityDao().getAllCity().map {
+        return db.getAllCity().map {
             City(
                 it.name,
                 it.pathImage ?: "",

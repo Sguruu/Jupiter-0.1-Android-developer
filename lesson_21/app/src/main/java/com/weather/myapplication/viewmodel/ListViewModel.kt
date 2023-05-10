@@ -13,12 +13,7 @@ class ListViewModel : ViewModel() {
     val cityListLiveData
         get() = _cityListLiveData
 
-    // вызывается при инициализации ViewModel
-    init {
-        getAllCity()
-    }
-
-    private fun getAllCity() {
+    fun getAllCity() {
         viewModelScope.launch {
             val listCity = repository.createListCity() + repository.getAllCity()
             updateCityListLiveData(listCity)
