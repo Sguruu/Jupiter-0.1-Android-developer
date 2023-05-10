@@ -101,6 +101,12 @@ class AddFragment : Fragment(R.layout.fragment_add) {
                 )
             )
         )
+
+        binding.nameCityTextView.setText("")
+        binding.latTextView.setText("")
+        binding.lonTextView.setText("")
+
+        toast("Город успешно добавлен")
     }
 
     private fun toast(text: String) {
