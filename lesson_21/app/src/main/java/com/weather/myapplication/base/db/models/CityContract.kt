@@ -6,8 +6,8 @@ object CityContract {
     object Columns {
         const val ID = "id"
         const val NAME = "name"
-        const val TEMP_MIN = "temp_min"
-        const val TEMP_MAX = "temp_max"
+        const val LAT = "lat"
+        const val LON = "lon"
         const val PATH_IMAGE = "path_image"
     }
 }

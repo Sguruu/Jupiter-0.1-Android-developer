@@ -4,15 +4,30 @@ import com.squareup.moshi.Moshi
 import com.weather.myapplication.R
 import com.weather.myapplication.base.App
 import com.weather.myapplication.base.Result
+import com.weather.myapplication.base.db.DataBase
 import com.weather.myapplication.base.network.Network
-import com.weather.myapplication.model.City
 import com.weather.myapplication.base.network.model.RequestWeather
 import com.weather.myapplication.base.network.model.ResponseWeather
+import com.weather.myapplication.model.City
 import com.weather.myapplication.model.Weather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class WeatherRepository {
+
+    private val db = DataBase.instance
+
+    suspend fun getAllCity(): List<City> {
+        return db.CityDao().getAllCity().map {
+            City(
+                it.name,
+                it.pathImage ?: "",
+                it.lat.toString(),
+                it.lon.toString()
+            )
+        }
+    }
+
     fun createListCity(): List<City> {
         val moscowLink =
             "https://cdn2.tu-tu.ru/image/pagetree_node_data/1/055c4b01273eb986fead1a6db4c20e9f/"

@@ -12,5 +12,5 @@ interface CityDao {
      * Получение всех городов
      */
     @Query("SELECT * FROM ${CityContract.TABLE_NAME}")
-    fun getAllCity(): List<CityEntity>
+    suspend fun getAllCity(): List<CityEntity>
 }
