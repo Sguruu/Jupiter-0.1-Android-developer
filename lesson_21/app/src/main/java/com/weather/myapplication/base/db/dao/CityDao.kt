@@ -1,8 +1,6 @@
 package com.weather.myapplication.base.db.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 import com.weather.myapplication.base.db.models.CityContract
 import com.weather.myapplication.base.db.models.CityContract.Columns
 import com.weather.myapplication.base.db.models.CityEntity
@@ -25,6 +23,24 @@ interface CityDao {
     /**
      * Получение города по id
      */
-    @Query("SELECT * FROM ${CityContract.TABLE_NAME} WHERE ${Columns.ID} = :${Columns.ID}")
+    @Query("SELECT * FROM ${CityContract.TABLE_NAME} WHERE ${Columns.ID} = :id")
     suspend fun getCityById(id: Long): CityEntity
+
+    /**
+     * Удаление пользователя
+     */
+    @Delete
+    suspend fun delete(cityEntity: CityEntity)
+
+    /**
+     * Удаление пользователя по id
+     */
+    @Query("DELETE FROM ${CityContract.TABLE_NAME} WHERE ${Columns.ID} = :cityID ")
+    suspend fun deleteCityById(cityID: Long)
+
+    /**
+     * обновление пользователя
+     */
+    @Update
+    suspend fun updateCity(city: CityEntity)
 }
