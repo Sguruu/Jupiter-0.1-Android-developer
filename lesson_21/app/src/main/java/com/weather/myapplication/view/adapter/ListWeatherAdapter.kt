@@ -9,7 +9,7 @@ import com.weather.myapplication.databinding.ItemCityBinding
 import com.weather.myapplication.model.City
 
 class ListWeatherAdapter(
-    private val onItemClickListener: (name: String, lat: String, lot: String, imageLink: String) -> Unit
+    private val onItemClickListener: (name: String, lat: String, lot: String, imageLink: String?) -> Unit
 ) : RecyclerView.Adapter<ListWeatherAdapter.Holder>() {
 
     private var cityList: List<City> = emptyList()
@@ -34,7 +34,7 @@ class ListWeatherAdapter(
 
     class Holder(
         private val binding: ItemCityBinding,
-        private val onItemClickListener: (name: String, lat: String, lot: String, imageLink: String) -> Unit
+        private val onItemClickListener: (name: String, lat: String, lot: String, imageLink: String?) -> Unit
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(city: City) {
             binding.nameCityTextView.text = city.name

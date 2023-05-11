@@ -24,8 +24,7 @@ class WeatherRepository {
                 CityEntity(
                     name = it.name,
                     lat = it.lat.toDouble(),
-                    lon = it.lon.toDouble(),
-                    pathImage = it.imageLink
+                    lon = it.lon.toDouble()
                 )
             }
         )
@@ -34,10 +33,9 @@ class WeatherRepository {
     suspend fun getAllCity(): List<City> {
         return db.getAllCity().map {
             City(
-                it.name,
-                it.pathImage ?: "",
-                it.lat.toString(),
-                it.lon.toString()
+                name = it.name,
+                lat = it.lat.toString(),
+                lon = it.lon.toString()
             )
         }
     }

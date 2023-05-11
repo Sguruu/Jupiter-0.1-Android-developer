@@ -2,7 +2,7 @@ package com.weather.myapplication.model
 
 data class City(
     val name: String,
-    val imageLink: String,
+    val imageLink: String? = null,
     val lat: String,
     val lon: String
 )
