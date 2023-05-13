@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/flowBasicFragment">
+
+    <fragment
+        android:id="@+id/flowBasicFragment"
+        android:name="com.weather.ls_22.FlowBasicFragment"
+        android:label="FlowBasicFragment"
+        tools:layout="@layout/fragment_flow_basic"/>
+</navigation>
