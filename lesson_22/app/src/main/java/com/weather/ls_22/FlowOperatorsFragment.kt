@@ -1,6 +1,7 @@
 package com.weather.ls_22
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import com.weather.ls_22.model.User
 import com.weather.ls_22.utils.textChangedFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
@@ -45,11 +47,17 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
         viewLifecycleOwner.lifecycleScope.launch {
             binding.editText.textChangedFlow()
                 .onStart {
-                    // заимтит сразу
+                    // заимтет сразу
                     emit("")
+                }
+                .onEach {
+                    Log.d("MyTest","старт поиска = $it")
                 }
                 // вставляем вводимый символ
                 .map { searchUsers(it) }
+                .onEach {
+                    Log.d("MyTest","конец поиска = $it")
+                }
                 // преобразуем в строку пользователей
                 .map {
                     it.map { it.toString() }
