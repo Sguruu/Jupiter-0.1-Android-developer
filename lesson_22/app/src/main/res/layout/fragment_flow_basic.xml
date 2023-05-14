@@ -6,24 +6,34 @@
     android:layout_height="match_parent"
     android:padding="16dp">
 
-    <Button
-        android:id="@+id/startEmitButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Подписка на flow"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
     <TextView
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/startEmitButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="text" />
+
+    <Button
+        android:id="@+id/startEmitButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Подписка на flow"
+        app:layout_constraintBottom_toTopOf="@id/startEmitCancelFlowButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/startEmitCancelFlowButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Подписка на flow + отмена старой корутины"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

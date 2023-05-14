@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.weather.ls_22.databinding.FragmentFlowBasicBinding
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -18,6 +19,8 @@ import kotlin.random.Random
 class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
     private var _binding: FragmentFlowBasicBinding? = null
     private val binding get() = _binding!!
+
+    private var currentJob: Job? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,28 +37,38 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
 
         val generator = createFlowGenerator()
 
-        binding.startEmitButton.setOnClickListener {
-            //  создание корутины в скоупе фрагмента
-            viewLifecycleOwner.lifecycleScope.launch {
-                // для получения значения из флоу используем терминальный метод
-                // value - значение из потока
-                generator
-                    // трансформируем наши данные
-                    .map {
-                        "Рандомное число : $it"
-                    }
-                    .collect { value ->
+        binding.startEmitCancelFlowButton.setOnClickListener {
+            // отмена текущей запущеной корутины
+            currentJob?.cancel()
+            startEmit(generator)
+        }
 
-                        Log.d("MyTest", "collect $value")
-                        binding.textView.text = value
-                    }
-            }
+        binding.startEmitButton.setOnClickListener {
+            startEmit(generator)
         }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun startEmit(currentFlow: Flow<Int>) {
+        //  создание корутины в скоупе фрагмента
+        currentJob = viewLifecycleOwner.lifecycleScope.launch {
+            currentFlow
+                // трансформируем наши данные
+                .map {
+                    "Рандомное число : $it"
+                }
+                // для получения значения из флоу используем терминальный метод
+                // value - значение из потока
+                .collect { value ->
+
+                    Log.d("MyTest", "collect $value")
+                    binding.textView.text = value
+                }
+        }
     }
 
     private fun createFlowGenerator(): Flow<Int> {
