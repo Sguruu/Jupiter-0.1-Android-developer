@@ -9,5 +9,14 @@
         android:id="@+id/flowBasicFragment"
         android:name="com.weather.ls_22.FlowBasicFragment"
         android:label="FlowBasicFragment"
-        tools:layout="@layout/fragment_flow_basic"/>
+        tools:layout="@layout/fragment_flow_basic">
+        <action
+            android:id="@+id/action_flowBasicFragment_to_flowOperatorsFragment"
+            app:destination="@id/flowOperatorsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/flowOperatorsFragment"
+        android:name="com.weather.ls_22.FlowOperatorsFragment"
+        android:label="FlowOperatorsFragment"
+        tools:layout="@layout/fragment_flow_operators"/>
 </navigation>

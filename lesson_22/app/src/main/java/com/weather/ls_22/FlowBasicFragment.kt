@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.weather.ls_22.databinding.FragmentFlowBasicBinding
 import com.weather.ls_22.utils.textChangedFlow
 import kotlinx.coroutines.Job
@@ -35,6 +36,11 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val generator = createFlowGenerator()
+
+        binding.newFragmentButton.setOnClickListener {
+            this.findNavController()
+                .navigate(R.id.action_flowBasicFragment_to_flowOperatorsFragment)
+        }
 
         binding.startEmitCancelFlowButton.setOnClickListener {
             // отмена текущей запущеной корутины

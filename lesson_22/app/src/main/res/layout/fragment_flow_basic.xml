@@ -49,6 +49,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Подписка на flow + отмена старой корутины"
+        app:layout_constraintBottom_toTopOf="@id/newFragmentButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/newFragmentButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Открыть другой фрагмент"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
