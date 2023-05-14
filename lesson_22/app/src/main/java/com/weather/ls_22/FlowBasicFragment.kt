@@ -10,9 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.weather.ls_22.databinding.FragmentFlowBasicBinding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -51,6 +49,26 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun flowOfBuilders() {
+        // принимает в параметрах различные количества элементов
+        flowOf(1, 2, 3)
+
+        // экстеншен функция asFlow которая позволяет преобразовать объект во flow
+        // пример использования
+        val flowFromSuspendLambda = suspend {
+            delay(1000)
+            10
+        }.asFlow()
+
+        (0..100).asFlow()
+
+        arrayOf(123, 321).asFlow()
+        listOf(123, 321).asFlow()
+        setOf(123, 321).asFlow()
+        //*
+
     }
 
     private fun startEmit(currentFlow: Flow<Int>) {
