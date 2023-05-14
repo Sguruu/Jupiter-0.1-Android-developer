@@ -51,6 +51,8 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
                     emit("")
                 }
                 .onEach {
+                    binding.textView.visibility = View.INVISIBLE
+                    binding.progressBar.visibility = View.VISIBLE
                     Log.d("MyTest", "старт поиска = $it")
                 }
                 // позволяет отменять текущий запрос и совершать новый
@@ -59,6 +61,8 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
                     searchUsers(it)
                 }
                 .onEach {
+                    binding.textView.visibility = View.VISIBLE
+                    binding.progressBar.visibility = View.GONE
                     Log.d("MyTest", "конец поиска = $it")
                 }
                 // преобразуем в строку пользователей
@@ -76,12 +80,8 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
 
     // представим что это функция возвращает результат запроса на сервер
     private suspend fun searchUsers(queru: String): List<User> {
-        binding.textView.visibility = View.INVISIBLE
-        binding.progressBar.visibility = View.VISIBLE
         // задержка 1 секунда
         delay(1000)
-        binding.textView.visibility = View.VISIBLE
-        binding.progressBar.visibility = View.GONE
         return listOfUserse.filter {
             // фильтр по имени
             it.name.contains(queru, ignoreCase = true)
