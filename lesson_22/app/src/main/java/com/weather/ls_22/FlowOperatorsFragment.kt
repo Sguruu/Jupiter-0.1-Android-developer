@@ -44,6 +44,7 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
     private fun flowOperators() {
         viewLifecycleOwner.lifecycleScope.launch {
             binding.editText.textChangedFlow()
+                // sample выдает только одно значение в указанный промежуток времени
                 .debounce(400)
                 .onStart {
                     // заимитет сразу
