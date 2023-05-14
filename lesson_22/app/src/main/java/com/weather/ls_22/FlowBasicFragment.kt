@@ -11,6 +11,7 @@ import com.weather.ls_22.databinding.FragmentFlowBasicBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
@@ -33,13 +34,21 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
 
         val generator = createFlowGenerator()
 
-        //  создание корутины в скоупе фрагмента
-        viewLifecycleOwner.lifecycleScope.launch {
-            // для получения значения из флоу используем терминальный метод
-            // value - значение из потока
-            generator.collect { value ->
-                Log.d("MyTest", "collect $value")
-                binding.textView.text = value.toString()
+        binding.startEmitButton.setOnClickListener {
+            //  создание корутины в скоупе фрагмента
+            viewLifecycleOwner.lifecycleScope.launch {
+                // для получения значения из флоу используем терминальный метод
+                // value - значение из потока
+                generator
+                    // трансформируем наши данные
+                    .map {
+                        "Рандомное число : $it"
+                    }
+                    .collect { value ->
+
+                        Log.d("MyTest", "collect $value")
+                        binding.textView.text = value
+                    }
             }
         }
     }
