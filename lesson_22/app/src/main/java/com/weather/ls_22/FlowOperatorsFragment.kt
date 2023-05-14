@@ -50,6 +50,8 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
                     // заимитет сразу
                     emit("")
                 }
+                // отфильтровывает одинаковые значения
+                .distinctUntilChanged()
                 .onEach {
                     binding.textView.visibility = View.INVISIBLE
                     binding.progressBar.visibility = View.VISIBLE
