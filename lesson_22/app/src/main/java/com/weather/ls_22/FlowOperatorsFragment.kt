@@ -12,6 +12,7 @@ import com.weather.ls_22.model.User
 import com.weather.ls_22.utils.textChangedFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
 class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
@@ -43,6 +44,10 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
     private fun flowOperators() {
         viewLifecycleOwner.lifecycleScope.launch {
             binding.editText.textChangedFlow()
+                .onStart {
+                    // заимтит сразу
+                    emit("")
+                }
                 // вставляем вводимый символ
                 .map { searchUsers(it) }
                 // преобразуем в строку пользователей
