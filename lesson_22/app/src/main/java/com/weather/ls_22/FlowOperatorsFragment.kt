@@ -12,10 +12,7 @@ import com.weather.ls_22.model.Gender
 import com.weather.ls_22.model.User
 import com.weather.ls_22.utils.textChangedFlow
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.mapLatest
-import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.flow.onStart
+import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 
 class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
@@ -47,6 +44,7 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
     private fun flowOperators() {
         viewLifecycleOwner.lifecycleScope.launch {
             binding.editText.textChangedFlow()
+                .debounce(400)
                 .onStart {
                     // заимитет сразу
                     emit("")
