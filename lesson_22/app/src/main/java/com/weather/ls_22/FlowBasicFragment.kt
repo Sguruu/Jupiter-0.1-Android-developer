@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.weather.ls_22.databinding.FragmentFlowBasicBinding
+import com.weather.ls_22.utils.textChangedFlow
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
@@ -32,7 +34,6 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         val generator = createFlowGenerator()
 
         binding.startEmitCancelFlowButton.setOnClickListener {
@@ -44,11 +45,25 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
         binding.startEmitButton.setOnClickListener {
             startEmit(generator)
         }
+
+        binding.emitCallbackFlowButton.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                flowFromCallback().collect {
+                    Log.d("MyTest", "collect $it")
+                    binding.textView.text = it
+                }
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun flowFromCallback(): Flow<String> {
+        // создаем flow используя диспетчер callbackFlow
+        return binding.editText.textChangedFlow()
     }
 
     private fun flowOfBuilders() {
@@ -67,8 +82,7 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
         arrayOf(123, 321).asFlow()
         listOf(123, 321).asFlow()
         setOf(123, 321).asFlow()
-        //*
-
+        // *
     }
 
     private fun startEmit(currentFlow: Flow<Int>) {
