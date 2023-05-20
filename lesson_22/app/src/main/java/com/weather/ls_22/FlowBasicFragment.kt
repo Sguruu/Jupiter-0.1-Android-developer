@@ -60,6 +60,10 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
                 }
             }
         }
+
+        binding.errorButton.setOnClickListener {
+            errorHandling()
+        }
     }
 
     override fun onDestroyView() {
@@ -123,5 +127,43 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
             }
         }
         return flow
+    }
+
+    private fun errorHandling() {
+        flow {
+            delay(1000)
+            emit(1)
+        }
+            // обрабатывает ошибки возникающие выше по цепочке
+            .catch {
+                // любой код
+            }
+            .catch { emit(1) }
+            .map { error("Ошибка в errorHandling") }
+            //   .catch { throw it } выкинуть исключение дальше по цепочки
+            .catch { }
+            .onEach { Log.d("MyTest", "element = $it") }
+            // указывает скоуп выполнения
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+    }
+
+
+    private fun errorHandling2() {
+        flow {
+            delay(1000)
+            emit(1)
+        }
+            .catch {
+                Log.d("tag","проброс исключения")
+                throw it
+            }
+            .catch {
+                Log.d("tag","игнорирование исключения")
+            }
+            .catch {
+                Log.d("tag","Emit нового значения")
+                emit(1)
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
     }
 }

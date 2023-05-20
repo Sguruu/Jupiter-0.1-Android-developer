@@ -58,6 +58,15 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Открыть другой фрагмент"
+        app:layout_constraintBottom_toTopOf="@id/errorButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/errorButton"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Обработка ошибки"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
