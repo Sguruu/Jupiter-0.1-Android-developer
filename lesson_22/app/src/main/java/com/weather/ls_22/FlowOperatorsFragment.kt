@@ -44,14 +44,20 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
 
     private fun flowOperators() {
         viewLifecycleOwner.lifecycleScope.launch {
-            binding.checkBox.checkedChangesFlow()
-            binding.editText.textChangedFlow()
+            combine(
+                binding.checkBox.checkedChangesFlow()
+                    .onStart { emit(false) },
+                binding.editText.textChangedFlow()
+                    .onStart { emit("") },
+                // функция объединения двух flow, где onlyFemale значение из checkBox, второе значения
+                // text которое приходит из editText
+                { onlyFemale, text ->
+                    // превратим наши значения в пару, чтобы было удобнее их использовать
+                    onlyFemale to text // анологично записи Pair(onlyFemale,text)
+                }
+            )
                 // sample выдает только одно значение в указанный промежуток времени
                 .debounce(400)
-                .onStart {
-                    // заимитет сразу
-                    emit("")
-                }
                 // отфильтровывает одинаковые значения
                 .distinctUntilChanged()
                 .onEach {
@@ -60,9 +66,9 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
                     Log.d("MyTest", "старт поиска = $it")
                 }
                 // позволяет отменять текущий запрос и совершать новый
-                .mapLatest {
+                .mapLatest { (onlyFemale, text) ->
                     // вставляем вводимый символ
-                    searchUsers(it)
+                    searchUsers(onlyFemale, text)
                 }
                 .onEach {
                     binding.textView.visibility = View.VISIBLE
@@ -83,12 +89,18 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
     }
 
     // представим что это функция возвращает результат запроса на сервер
-    private suspend fun searchUsers(queru: String): List<User> {
+    private suspend fun searchUsers(onlyFemale: Boolean, queru: String): List<User> {
         // задержка 1 секунда
         delay(1000)
         return listOfUserse.filter {
-            // фильтр по имени
-            it.name.contains(queru, ignoreCase = true)
+            // проверка установлено ли значение в чек боксе
+            if (!onlyFemale) {
+                // фильтр только по имени
+                it.name.contains(queru, ignoreCase = true)
+            } else {
+                // фильтр по имени и полу
+                it.name.contains(queru, ignoreCase = true) && it.gender == Gender.FEMALE
+            }
         }
     }
 
