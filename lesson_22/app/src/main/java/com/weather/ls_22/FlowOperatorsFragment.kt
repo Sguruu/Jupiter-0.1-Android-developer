@@ -12,9 +12,11 @@ import com.weather.ls_22.model.Gender
 import com.weather.ls_22.model.User
 import com.weather.ls_22.utils.checkedChangesFlow
 import com.weather.ls_22.utils.textChangedFlow
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
     private var _binding: FragmentFlowOperatorsBinding? = null
@@ -44,6 +46,20 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
 
     private fun flowOperators() {
         viewLifecycleOwner.lifecycleScope.launch {
+            // пример смены контекста
+            flow {
+                delay(1000)
+                emit(1)
+                delay(1000)
+                emit(2)
+            }
+                // все что выше по цепочке будет выполняться в Dispatchers.IO
+                .flowOn(Dispatchers.IO)
+                .map { it * it }
+                // по умолчанию запускается на ui потоке
+                .flowOn(Dispatchers.IO)
+                .collect { Log.d("MyTest", "Результат вычисления = $it ") }
+
             combine(
                 binding.checkBox.checkedChangesFlow()
                     .onStart { emit(false) },
@@ -90,16 +106,18 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
 
     // представим что это функция возвращает результат запроса на сервер
     private suspend fun searchUsers(onlyFemale: Boolean, queru: String): List<User> {
-        // задержка 1 секунда
-        delay(1000)
-        return listOfUserse.filter {
-            // проверка установлено ли значение в чек боксе
-            if (!onlyFemale) {
-                // фильтр только по имени
-                it.name.contains(queru, ignoreCase = true)
-            } else {
-                // фильтр по имени и полу
-                it.name.contains(queru, ignoreCase = true) && it.gender == Gender.FEMALE
+        return withContext(Dispatchers.IO) {
+            // задержка 1 секунда
+            delay(1000)
+            listOfUserse.filter {
+                // проверка установлено ли значение в чек боксе
+                if (!onlyFemale) {
+                    // фильтр только по имени
+                    it.name.contains(queru, ignoreCase = true)
+                } else {
+                    // фильтр по имени и полу
+                    it.name.contains(queru, ignoreCase = true) && it.gender == Gender.FEMALE
+                }
             }
         }
     }
