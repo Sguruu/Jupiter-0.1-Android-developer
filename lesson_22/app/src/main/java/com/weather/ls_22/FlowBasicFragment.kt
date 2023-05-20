@@ -146,24 +146,4 @@ class FlowBasicFragment : Fragment(R.layout.fragment_flow_basic) {
             // указывает скоуп выполнения
             .launchIn(viewLifecycleOwner.lifecycleScope)
     }
-
-
-    private fun errorHandling2() {
-        flow {
-            delay(1000)
-            emit(1)
-        }
-            .catch {
-                Log.d("tag","проброс исключения")
-                throw it
-            }
-            .catch {
-                Log.d("tag","игнорирование исключения")
-            }
-            .catch {
-                Log.d("tag","Emit нового значения")
-                emit(1)
-            }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-    }
 }
