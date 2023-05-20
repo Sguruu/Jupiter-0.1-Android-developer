@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.weather.ls_22.databinding.FragmentFlowOperatorsBinding
 import com.weather.ls_22.model.Gender
 import com.weather.ls_22.model.User
+import com.weather.ls_22.utils.checkedChangesFlow
 import com.weather.ls_22.utils.textChangedFlow
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
@@ -43,6 +44,7 @@ class FlowOperatorsFragment : Fragment(R.layout.fragment_flow_operators) {
 
     private fun flowOperators() {
         viewLifecycleOwner.lifecycleScope.launch {
+            binding.checkBox.checkedChangesFlow()
             binding.editText.textChangedFlow()
                 // sample выдает только одно значение в указанный промежуток времени
                 .debounce(400)

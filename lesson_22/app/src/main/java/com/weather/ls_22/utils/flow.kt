@@ -3,6 +3,8 @@ package com.weather.ls_22.utils
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.widget.CheckBox
+import android.widget.CompoundButton
 import android.widget.EditText
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.onFailure
@@ -50,6 +52,22 @@ fun EditText.textChangedFlow(): Flow<String> {
         awaitClose {
             Log.d("MyTest", "awaitClose")
             this@textChangedFlow.removeTextChangedListener(textChangedListener)
+        }
+    }
+}
+
+fun CheckBox.checkedChangesFlow(): Flow<Boolean> {
+    return callbackFlow {
+        // создаем объект слушателя
+        val checkedChangeListener = CompoundButton.OnCheckedChangeListener { _, isChecked ->
+            // эмитем данные
+            trySendBlocking(isChecked)
+        }
+        // устанавливаем слушатель
+        setOnCheckedChangeListener(checkedChangeListener)
+        awaitClose {
+            // при отмене флоу, обнуляем листенеры
+            setOnCheckedChangeListener(null)
         }
     }
 }
