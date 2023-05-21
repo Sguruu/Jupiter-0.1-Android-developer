@@ -21,6 +21,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="background Service" />
+
+        <Button
+            android:id="@+id/foregroundServiceButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Foreground Service" />
     </LinearLayout>
 
     <ProgressBar

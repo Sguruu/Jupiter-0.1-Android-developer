@@ -1,7 +1,9 @@
 package com.weather.ls_23
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +34,9 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
         binding.backgroundServiceButton.setOnClickListener {
             startService()
         }
+        binding.foregroundServiceButton.setOnClickListener {
+            startForegroundService()
+        }
     }
 
     override fun onDestroyView() {
@@ -52,5 +57,13 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
     private fun startService() {
         val downloadIntent = Intent(requireContext(), DownloadService::class.java)
         requireContext().startService(downloadIntent)
+    }
+
+    private fun startForegroundService() {
+        Log.d("MyTest", "startForegroundService")
+        val downloadIntent = Intent(requireContext(), ForegroundDownloadService::class.java)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            requireContext().startForegroundService(downloadIntent)
+        }
     }
 }
