@@ -10,6 +10,8 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkManager
 import com.weather.ls_23.databinding.FragmentServicesBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -37,11 +39,28 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
         binding.foregroundServiceButton.setOnClickListener {
             startForegroundService()
         }
+        binding.downloadButton.setOnClickListener {
+            startDownload()
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun startDownload() {
+        val urlToDownload = binding.editText.text.toString()
+        // настроен как будет выполняться работать
+        val workRequest =
+            // создадим работу, которая будет совершаться один раз
+            OneTimeWorkRequestBuilder<DownloadWorker>()
+                .build()
+
+        // отправляем работу на выполнение
+        WorkManager.getInstance(requireContext())
+            // ставит в очередь выполнение workRequest
+            .enqueue(workRequest)
     }
 
     private fun observe() {

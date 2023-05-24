@@ -27,6 +27,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Foreground Service" />
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Url donwload" />
+
+        <Button
+            android:id="@+id/downloadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="DOWNLOAD" />
+
+        <Button
+            android:id="@+id/cancelDownloadButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Cancel download"
+            android:visibility="invisible" />
     </LinearLayout>
 
     <ProgressBar
