@@ -12,6 +12,7 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.work.Constraints
+import androidx.work.ExistingWorkPolicy
 import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
@@ -46,6 +47,9 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
         }
         binding.downloadButton.setOnClickListener {
             startDownload()
+        }
+        binding.cancelDownloadButton.setOnClickListener {
+            stopDownload()
         }
     }
 
@@ -88,15 +92,33 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
         // отправляем работу на выполнение
         WorkManager.getInstance(requireContext())
             // ставит в очередь выполнение workRequest
-            .enqueue(workRequest)
+            // .enqueue(workRequest)
+            // ставит в очередь выполнение workRequest и принимает в себя дополнительные параметры
+            /*
+            дополнительные параметы :
+            uniqueWorkName - Идентификатор
+            existingWorkPolicy - стратегия работы, что делать если work с таким именем уже
+            существует, есть четыре стратегии :
+            REPLACE - заменить
+            KEEP - Ничего не делать
+            APPEND - поставить в очередь и тд, подробнее в описании класса ExistingWorkPolicy
+             */
+            .enqueueUniqueWork(DOWNLOAD_WORK_ID, ExistingWorkPolicy.REPLACE, workRequest)
 
         WorkManager.getInstance(requireContext())
             // вернет LiveData
-            .getWorkInfoByIdLiveData(workRequest.id)
+            //   .getWorkInfoByIdLiveData(workRequest.id)
+            // возвращает LiveData по индификатору воркера
+            .getWorkInfosForUniqueWorkLiveData(DOWNLOAD_WORK_ID)
             // подпишемся на LiveData
             .observe(viewLifecycleOwner, {
-                observeWorkInfo(it)
+                observeWorkInfo(it.first())
             })
+    }
+
+    private fun stopDownload() {
+        // отменим работу по ID
+        WorkManager.getInstance(requireContext()).cancelUniqueWork(DOWNLOAD_WORK_ID)
     }
 
     private fun observeWorkInfo(workInfo: WorkInfo) {
@@ -137,5 +159,9 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             requireContext().startForegroundService(downloadIntent)
         }
+    }
+
+    companion object {
+        private const val DOWNLOAD_WORK_ID = "DOWNLOAD_WORK"
     }
 }
