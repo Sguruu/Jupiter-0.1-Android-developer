@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkManager
+import androidx.work.workDataOf
 import com.weather.ls_23.databinding.FragmentServicesBinding
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -51,10 +52,21 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
 
     private fun startDownload() {
         val urlToDownload = binding.editText.text.toString()
+
+        // создания объекта, для передачи данных
+        val workData = workDataOf(
+            // в качестве значаения можно передавать примитивы, строки и их массивы
+            // есть ограничение на размер это 10 килобайт, если данных больше, то их можно положить
+            // в БД или в файл
+            DownloadWorker.DOWNLOAD_URL_KEY to urlToDownload // аналогичный синтаксис Pair(DownloadWorker.DOWNLOAD_URL_KEY, urlToDownload)
+        )
+
         // настроен как будет выполняться работать
         val workRequest =
             // создадим работу, которая будет совершаться один раз
             OneTimeWorkRequestBuilder<DownloadWorker>()
+                // отправка данных в worker
+                .setInputData(workData)
                 .build()
 
         // отправляем работу на выполнение

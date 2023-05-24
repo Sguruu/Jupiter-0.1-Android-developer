@@ -19,8 +19,15 @@ class DownloadWorker(
      * failure если задача выполнена не успешно и повторять не нужно
      */
     override suspend fun doWork(): Result {
-        Log.d("MyTest","work started")
+        // получение данных по ключу
+        val uriToDownload = inputData.getString(DOWNLOAD_URL_KEY)
+        Log.d("MyTest", "work started")
+        Log.d("MyTest", "work uriToDownload $uriToDownload")
         delay(1000)
         return Result.success()
+    }
+
+    companion object {
+        const val DOWNLOAD_URL_KEY = "DOWNLOAD_URL"
     }
 }
