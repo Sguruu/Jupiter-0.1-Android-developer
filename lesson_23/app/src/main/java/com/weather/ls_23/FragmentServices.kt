@@ -11,6 +11,8 @@ import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.work.Constraints
+import androidx.work.NetworkType
 import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
@@ -63,12 +65,24 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
             DownloadWorker.DOWNLOAD_URL_KEY to urlToDownload // аналогичный синтаксис Pair(DownloadWorker.DOWNLOAD_URL_KEY, urlToDownload)
         )
 
+        // создаем ограничения
+        val workConstraints = Constraints.Builder()
+            /* виды NetworkType
+            NOT_REQUIRED - сеть не требуется
+            CONNECTED - Для этой работы требуется любое работающее сетевое соединение
+            UNMETERED - Для этой работы требуется безлимитное сетевое подключение
+            METERED - Для этой работы требуется лимитное сетевое подключение.
+             */
+            .setRequiredNetworkType(NetworkType.NOT_ROAMING)
+            .build()
+
         // настроен как будет выполняться работать
         val workRequest =
             // создадим работу, которая будет совершаться один раз
             OneTimeWorkRequestBuilder<DownloadWorker>()
                 // отправка данных в worker
                 .setInputData(workData)
+                .setConstraints(workConstraints)
                 .build()
 
         // отправляем работу на выполнение
