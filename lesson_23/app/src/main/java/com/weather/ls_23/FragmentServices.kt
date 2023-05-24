@@ -104,16 +104,6 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
             APPEND - поставить в очередь и тд, подробнее в описании класса ExistingWorkPolicy
              */
             .enqueueUniqueWork(DOWNLOAD_WORK_ID, ExistingWorkPolicy.REPLACE, workRequest)
-
-        WorkManager.getInstance(requireContext())
-            // вернет LiveData
-            //   .getWorkInfoByIdLiveData(workRequest.id)
-            // возвращает LiveData по индификатору воркера
-            .getWorkInfosForUniqueWorkLiveData(DOWNLOAD_WORK_ID)
-            // подпишемся на LiveData
-            .observe(viewLifecycleOwner, {
-                observeWorkInfo(it.first())
-            })
     }
 
     private fun stopDownload() {
@@ -145,6 +135,16 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
                 binding.progressBar.isVisible = isLoading
             }
             .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        WorkManager.getInstance(requireContext())
+            // вернет LiveData
+            //   .getWorkInfoByIdLiveData(workRequest.id)
+            // возвращает LiveData по индификатору воркера
+            .getWorkInfosForUniqueWorkLiveData(DOWNLOAD_WORK_ID)
+            // подпишемся на LiveData
+            .observe(viewLifecycleOwner, {
+                observeWorkInfo(it.first())
+            })
     }
 
     // запуск сервиса
