@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import androidx.work.workDataOf
 import com.weather.ls_23.databinding.FragmentServicesBinding
@@ -73,6 +75,31 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
         WorkManager.getInstance(requireContext())
             // ставит в очередь выполнение workRequest
             .enqueue(workRequest)
+
+        WorkManager.getInstance(requireContext())
+            // вернет LiveData
+            .getWorkInfoByIdLiveData(workRequest.id)
+            // подпишемся на LiveData
+            .observe(viewLifecycleOwner, {
+                observeWorkInfo(it)
+            })
+    }
+
+    private fun observeWorkInfo(workInfo: WorkInfo) {
+        // получаем состояние воркера
+        val isFinished = workInfo.state.isFinished
+
+        binding.progressBar.isVisible = !isFinished
+        binding.cancelDownloadButton.isVisible = !isFinished
+        binding.downloadButton.isVisible = isFinished
+
+        if (isFinished) {
+            Toast.makeText(
+                requireContext(),
+                "work завершился с состоянием = ${workInfo.state}",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 
     private fun observe() {
