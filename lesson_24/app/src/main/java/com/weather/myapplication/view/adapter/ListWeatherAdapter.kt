@@ -12,7 +12,8 @@ class ListWeatherAdapter(
     private val onItemClickListener: (name: String, lat: String, lot: String, imageLink: String?) -> Unit
 ) : RecyclerView.Adapter<ListWeatherAdapter.Holder>() {
 
-    private var cityList: List<City> = emptyList()
+    var cityList: List<City> = emptyList()
+        private set
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val inflate = LayoutInflater.from(parent.context)

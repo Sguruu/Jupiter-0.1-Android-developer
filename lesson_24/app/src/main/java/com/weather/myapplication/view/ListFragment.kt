@@ -1,6 +1,7 @@
 package com.weather.myapplication.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,10 +10,12 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.weather.myapplication.R
 import com.weather.myapplication.databinding.FragmentListBinding
+import com.weather.myapplication.view.adapter.CustomDuffCallback
 import com.weather.myapplication.view.adapter.ListWeatherAdapter
 import com.weather.myapplication.viewmodel.ListViewModel
 import com.weather.myapplication.viewmodel.MainActivityViewModel
@@ -67,7 +70,15 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun observeViewModelState() {
         viewModel.cityListLiveData.observe(viewLifecycleOwner) {
-            adapter?.updateCity(it)
+            // Использование DiffUtil
+            val customDuffCallback = CustomDuffCallback(adapter?.cityList.orEmpty(), it)
+            val diffResult = DiffUtil.calculateDiff(customDuffCallback)
+
+            adapter?.let { adapter ->
+                Log.d("MyTest", "adapter")
+                adapter.updateCity(it)
+                diffResult.dispatchUpdatesTo(adapter)
+            }
         }
     }
 }
