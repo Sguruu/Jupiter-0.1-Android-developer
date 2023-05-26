@@ -10,12 +10,14 @@ import com.weather.myapplication.model.Weather
 import com.weather.myapplication.repository.WeatherRepository
 import kotlinx.coroutines.*
 
-class InfoViewModel : ViewModel() {
+// ktlint-disable no-wildcard-imports
+
+class InfoViewModel(
+    private val repository: WeatherRepository
+) : ViewModel() {
     private val _weatherLiveData = MutableLiveData<Weather>()
     val responseWeatherLiveData
         get() = _weatherLiveData
-
-    private val repository = WeatherRepository()
 
     private var currentCall: retrofit2.Call<ResponseWeather>? = null
 
@@ -26,6 +28,7 @@ class InfoViewModel : ViewModel() {
                     is Result.Success<Weather> -> {
                         updateWeatherLiveData(this.data)
                     }
+
                     is Result.Error -> {
                         // тут обрабатываем ошибку
                         Log.d("MyTest", "Обработка ошибки∆")

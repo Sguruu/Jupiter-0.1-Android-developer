@@ -7,8 +7,10 @@ import com.weather.myapplication.model.City
 import com.weather.myapplication.repository.WeatherRepository
 import kotlinx.coroutines.launch
 
-class ListViewModel : ViewModel() {
-    private val repository = WeatherRepository()
+class ListViewModel(
+    private val repository: WeatherRepository
+) : ViewModel() {
+
     private val _cityListLiveData = MutableLiveData<List<City>>()
     val cityListLiveData
         get() = _cityListLiveData

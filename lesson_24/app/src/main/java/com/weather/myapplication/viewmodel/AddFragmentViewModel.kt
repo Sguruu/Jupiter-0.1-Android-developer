@@ -6,8 +6,7 @@ import com.weather.myapplication.model.City
 import com.weather.myapplication.repository.WeatherRepository
 import kotlinx.coroutines.launch
 
-class AddFragmentViewModel : ViewModel() {
-    private val repository = WeatherRepository()
+class AddFragmentViewModel(private val repository: WeatherRepository) : ViewModel() {
 
     fun insertCites(cites: List<City>) {
         viewModelScope.launch {
