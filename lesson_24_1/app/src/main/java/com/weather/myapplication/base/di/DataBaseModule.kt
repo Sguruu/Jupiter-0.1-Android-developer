@@ -8,6 +8,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import javax.inject.Singleton
 
 @Module
 // указание к какому компоненту пренадлежит данный модуль
@@ -15,6 +16,7 @@ import dagger.hilt.components.SingletonComponent
 class DataBaseModule {
 
     @Provides
+    @Singleton
     fun provideDataBase(context: Application): WeatherDataBase {
         return Room.databaseBuilder(
             context,
