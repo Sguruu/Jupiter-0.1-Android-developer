@@ -17,7 +17,6 @@ import com.weather.myapplication.R
 import com.weather.myapplication.databinding.FragmentListBinding
 import com.weather.myapplication.view.adapter.CustomDuffCallback
 import com.weather.myapplication.view.adapter.ListWeatherAdapter
-import com.weather.myapplication.viewmodel.CustomViewModelFactory
 import com.weather.myapplication.viewmodel.ListViewModel
 import com.weather.myapplication.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint

@@ -18,11 +18,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.weather.myapplication.R
-import com.weather.myapplication.base.di.DiContainer
 import com.weather.myapplication.databinding.FragmentAddBinding
 import com.weather.myapplication.model.City
 import com.weather.myapplication.viewmodel.AddFragmentViewModel
-import com.weather.myapplication.viewmodel.CustomViewModelFactory
 import com.weather.myapplication.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
 

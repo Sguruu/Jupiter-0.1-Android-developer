@@ -10,7 +10,6 @@ import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.weather.myapplication.R
 import com.weather.myapplication.databinding.FragmentInfoBinding
-import com.weather.myapplication.viewmodel.CustomViewModelFactory
 import com.weather.myapplication.viewmodel.InfoViewModel
 import com.weather.myapplication.viewmodel.MainActivityViewModel
 import dagger.hilt.android.AndroidEntryPoint
