@@ -1,5 +1,6 @@
 package com.weather.myapplication.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weather.myapplication.model.City
@@ -11,6 +12,10 @@ import javax.inject.Inject
 @HiltViewModel
 class AddFragmentViewModel @Inject constructor(private val repository: WeatherRepository) :
     ViewModel() {
+
+    init {
+        Log.d("MyTest","init AddFragmentViewModel")
+    }
 
     fun insertCites(cites: List<City>) {
         viewModelScope.launch {

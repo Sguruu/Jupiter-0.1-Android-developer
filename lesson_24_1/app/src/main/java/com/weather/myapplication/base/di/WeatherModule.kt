@@ -19,5 +19,6 @@ abstract class WeatherModule {
     // можем вместо Provides использовать Binds в абстрактном классе, тогда dagger сам реализует
     // абстракную функцию
     @Binds
+    // @ViewModelScoped
     abstract fun providesUserRepository(impl: WeatherRepositoryImpl): WeatherRepository
 }

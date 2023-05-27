@@ -1,5 +1,6 @@
 package com.weather.myapplication.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -13,6 +14,9 @@ import javax.inject.Inject
 class ListViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
+    init {
+        Log.d("MyTest", "init ListViewModel")
+    }
 
     private val _cityListLiveData = MutableLiveData<List<City>>()
     val cityListLiveData

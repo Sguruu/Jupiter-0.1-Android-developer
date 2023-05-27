@@ -77,7 +77,6 @@ class ListFragment : Fragment(R.layout.fragment_list) {
             val diffResult = DiffUtil.calculateDiff(customDuffCallback)
 
             adapter?.let { adapter ->
-                Log.d("MyTest", "adapter")
                 adapter.updateCity(it)
                 diffResult.dispatchUpdatesTo(adapter)
             }
