@@ -8,11 +8,12 @@ import com.weather.myapplication.base.Result
 import com.weather.myapplication.base.network.model.ResponseWeather
 import com.weather.myapplication.model.Weather
 import com.weather.myapplication.repository.WeatherRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-// ktlint-disable no-wildcard-imports
-
-class InfoViewModel(
+@HiltViewModel
+class InfoViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
     private val _weatherLiveData = MutableLiveData<Weather>()

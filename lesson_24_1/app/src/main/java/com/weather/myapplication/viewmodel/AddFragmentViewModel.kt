@@ -4,9 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weather.myapplication.model.City
 import com.weather.myapplication.repository.WeatherRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddFragmentViewModel(private val repository: WeatherRepository) : ViewModel() {
+@HiltViewModel
+class AddFragmentViewModel @Inject constructor(private val repository: WeatherRepository) :
+    ViewModel() {
 
     fun insertCites(cites: List<City>) {
         viewModelScope.launch {

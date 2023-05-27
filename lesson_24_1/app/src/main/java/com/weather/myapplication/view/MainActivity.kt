@@ -10,7 +10,9 @@ import androidx.navigation.findNavController
 import com.weather.myapplication.R
 import com.weather.myapplication.databinding.ActivityMainBinding
 import com.weather.myapplication.viewmodel.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

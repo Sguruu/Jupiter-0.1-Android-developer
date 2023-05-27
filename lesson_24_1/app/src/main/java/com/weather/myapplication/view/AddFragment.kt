@@ -24,14 +24,14 @@ import com.weather.myapplication.model.City
 import com.weather.myapplication.viewmodel.AddFragmentViewModel
 import com.weather.myapplication.viewmodel.CustomViewModelFactory
 import com.weather.myapplication.viewmodel.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class AddFragment : Fragment(R.layout.fragment_add) {
     private var _binding: FragmentAddBinding? = null
     private val binding get() = _binding!!
     private val activityViewModel: MainActivityViewModel by activityViewModels()
-    private val viewModel: AddFragmentViewModel by viewModels {
-        CustomViewModelFactory()
-    }
+    private val viewModel: AddFragmentViewModel by viewModels()
 
     private var resultLauncher =
         registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->

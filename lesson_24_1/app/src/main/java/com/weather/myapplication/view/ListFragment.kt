@@ -20,14 +20,14 @@ import com.weather.myapplication.view.adapter.ListWeatherAdapter
 import com.weather.myapplication.viewmodel.CustomViewModelFactory
 import com.weather.myapplication.viewmodel.ListViewModel
 import com.weather.myapplication.viewmodel.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ListFragment : Fragment(R.layout.fragment_list) {
     private var _binding: FragmentListBinding? = null
     private val binding get() = _binding!!
     private var adapter: ListWeatherAdapter? = null
-    private val viewModel: ListViewModel by viewModels {
-        CustomViewModelFactory()
-    }
+    private val viewModel: ListViewModel by viewModels()
     private val activityViewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(

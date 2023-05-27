@@ -13,14 +13,14 @@ import com.weather.myapplication.databinding.FragmentInfoBinding
 import com.weather.myapplication.viewmodel.CustomViewModelFactory
 import com.weather.myapplication.viewmodel.InfoViewModel
 import com.weather.myapplication.viewmodel.MainActivityViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class InfoFragment : Fragment(R.layout.fragment_info) {
 
     private var _binding: FragmentInfoBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: InfoViewModel by viewModels {
-        CustomViewModelFactory()
-    }
+    private val viewModel: InfoViewModel by viewModels()
     private val activityViewModel: MainActivityViewModel by activityViewModels()
 
     override fun onCreateView(

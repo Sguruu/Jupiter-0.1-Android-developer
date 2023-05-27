@@ -5,9 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.weather.myapplication.model.City
 import com.weather.myapplication.repository.WeatherRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class ListViewModel(
+@HiltViewModel
+class ListViewModel @Inject constructor(
     private val repository: WeatherRepository
 ) : ViewModel() {
 

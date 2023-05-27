@@ -13,8 +13,9 @@ import com.weather.myapplication.model.City
 import com.weather.myapplication.model.Weather
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class WeatherRepositoryImpl(
+class WeatherRepositoryImpl @Inject constructor(
     private val db: CityDao
 ) : WeatherRepository {
 
