@@ -106,9 +106,25 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
             .enqueueUniqueWork(DOWNLOAD_WORK_ID, ExistingWorkPolicy.REPLACE, workRequest)
     }
 
-    private fun stopDownload() {
-        // отменим работу по ID
-        WorkManager.getInstance(requireContext()).cancelUniqueWork(DOWNLOAD_WORK_ID)
+    private fun observe() {
+        DownloadState.downloadState
+            .onEach { isLoading ->
+                binding.backgroundServiceButton.isVisible = !isLoading
+                binding.progressBar.isVisible = isLoading
+            }
+            .launchIn(viewLifecycleOwner.lifecycleScope)
+
+        WorkManager.getInstance(requireContext())
+            // вернет LiveData
+            //   .getWorkInfoByIdLiveData(workRequest.id)
+            // возвращает LiveData по индификатору воркера
+            .getWorkInfosForUniqueWorkLiveData(DOWNLOAD_WORK_ID)
+            // подпишемся на LiveData
+            .observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()) {
+                    observeWorkInfo(it.first())
+                }
+            }
     }
 
     private fun observeWorkInfo(workInfo: WorkInfo) {
@@ -128,23 +144,9 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
         }
     }
 
-    private fun observe() {
-        DownloadState.downloadState
-            .onEach { isLoading ->
-                binding.backgroundServiceButton.isVisible = !isLoading
-                binding.progressBar.isVisible = isLoading
-            }
-            .launchIn(viewLifecycleOwner.lifecycleScope)
-
-        WorkManager.getInstance(requireContext())
-            // вернет LiveData
-            //   .getWorkInfoByIdLiveData(workRequest.id)
-            // возвращает LiveData по индификатору воркера
-            .getWorkInfosForUniqueWorkLiveData(DOWNLOAD_WORK_ID)
-            // подпишемся на LiveData
-            .observe(viewLifecycleOwner, {
-             //   observeWorkInfo(it.first())
-            })
+    private fun stopDownload() {
+        // отменим работу по ID
+        WorkManager.getInstance(requireContext()).cancelUniqueWork(DOWNLOAD_WORK_ID)
     }
 
     // запуск сервиса
