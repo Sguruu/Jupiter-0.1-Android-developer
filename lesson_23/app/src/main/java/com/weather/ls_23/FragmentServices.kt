@@ -143,7 +143,7 @@ class FragmentServices : Fragment(R.layout.fragment_services) {
             .getWorkInfosForUniqueWorkLiveData(DOWNLOAD_WORK_ID)
             // подпишемся на LiveData
             .observe(viewLifecycleOwner, {
-                observeWorkInfo(it.first())
+             //   observeWorkInfo(it.first())
             })
     }
 

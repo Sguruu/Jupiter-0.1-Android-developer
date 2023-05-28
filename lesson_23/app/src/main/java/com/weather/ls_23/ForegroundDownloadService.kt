@@ -1,11 +1,18 @@
 package com.weather.ls_23
 
+import android.Manifest
 import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
 import android.app.Service
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.IBinder
 import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import kotlinx.coroutines.*
@@ -33,6 +40,10 @@ class ForegroundDownloadService() : Service() {
     }
 
     private fun downloadFile() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(CHANNEL_ID, CHANNEL_NAME)
+        }
+
         val notificationManagerCompat = NotificationManagerCompat.from(this)
         // стартует оповещение для нашего сервиса
         // на вход принимает индификатор оповещения и само оповещение
@@ -46,6 +57,22 @@ class ForegroundDownloadService() : Service() {
                 Log.d("MyTest", "downloadProgress = ${it + 1}/$maxProgress")
                 val updatedNotification =
                     createNotification(it + 1, maxProgress, "Прогресс загрузки")
+
+                // проверка на разрешение
+                if (ActivityCompat.checkSelfPermission(
+                        this@ForegroundDownloadService,
+                        Manifest.permission.POST_NOTIFICATIONS
+                    ) != PackageManager.PERMISSION_GRANTED
+                ) {
+                    // TODO: Consider calling
+                    //    ActivityCompat#requestPermissions
+                    // here to request the missing permissions, and then overriding
+                    //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                    //                                          int[] grantResults)
+                    // to handle the case where the user grants the permission. See the documentation
+                    // for ActivityCompat#requestPermissions for more details.
+                    return@forEach
+                }
                 // отображание новой нотификации
                 notificationManagerCompat.notify(NOTIFICATION_ID, updatedNotification)
                 delay(1000)
@@ -96,8 +123,20 @@ class ForegroundDownloadService() : Service() {
             .build()
     }
 
+    /**
+     * Метод для создания канала, необходим начиная с Api 26
+     */
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun createNotificationChannel(channelId: String, channelName: String): String {
+        val chan = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_NONE)
+        val service = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        service.createNotificationChannel(chan)
+        return channelId
+    }
+
     companion object {
         const val NOTIFICATION_ID = 134
+        const val CHANNEL_NAME = "ForegroundServiceChannel"
         const val CHANNEL_ID = "ForegroundService Kotlin"
     }
 }
