@@ -30,7 +30,7 @@ class DataBaseModule {
     }
 
     @Provides
-    fun provideUserDao(db: WeatherDataBase): CityDao {
+    fun provideCityDao(db: WeatherDataBase): CityDao {
         // нет scope, новый инстанс будет создан каждый раз при запросе CityDao
         Log.d("MyTest", "provideUserDao")
         return db.CityDao()
