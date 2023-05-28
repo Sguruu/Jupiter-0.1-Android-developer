@@ -4,7 +4,73 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7ee15fdb-56dd-4121-8351-f0c88e625fcd" name="Changes" comment="Init commit 24 lesson" />
+    <list default="true" id="7ee15fdb-56dd-4121-8351-f0c88e625fcd" name="Changes" comment="Init commit 24 lesson">
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson_24_1/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/App.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/db/CityContract.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/db/dao/CityDao.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/db/database/WeatherDataBase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/mapper/MapperCity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/mapper/MapperWeather.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/models/db/CityEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/models/network/RequestWeather.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/models/network/ResponseWeather.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/network/CustomHeaderInterceptor.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/network/Network.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/network/retrofit/WeatherApi.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/data/repository/WeatherRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/di/DataBaseModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/di/MapperModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/di/WeatherModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/domain/common/Result.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/domain/model/City.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/domain/model/Weather.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/domain/repository/WeatherRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/utils/SingleLiveEvent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/view/AddFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/view/InfoFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/view/ListFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/view/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/view/adapter/CustomDuffCallback.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/view/adapter/ListWeatherAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/viewmodel/AddFragmentViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/viewmodel/InfoViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/viewmodel/ListViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/java/com/weather/myapplication/presentation/viewmodel/MainActivityViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lesson_24_1/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../lesson_24_1/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/App.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/Result.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/db/dao/CityDao.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/db/database/WeatherDataBase.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/db/models/CityContract.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/db/models/CityEntity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/di/DataBaseModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/di/WeatherModule.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/ex/SingleLiveEvent.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/network/CustomHeaderInterceptor.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/network/Network.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/network/model/RequestWeather.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/network/model/ResponseWeather.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/base/retrofit/WeatherApi.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/model/City.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/model/Weather.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/repository/WeatherRepository.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/repository/WeatherRepositoryImpl.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/view/AddFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/view/InfoFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/view/ListFragment.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/view/MainActivity.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/view/adapter/CustomDuffCallback.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/view/adapter/ListWeatherAdapter.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/viewmodel/AddFragmentViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/viewmodel/InfoViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/viewmodel/ListViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/weather/myapplication/viewmodel/MainActivityViewModel.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/navigation/nav_graph.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,7 +82,50 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$/app">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="My Application" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="My Application" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="My Application" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="My Application" type="f1a62948:ProjectNode" />
+                <item name="app" type="2d1252cf:ModuleNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="other" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="d84f0a50c8e393aa3fb174b53b2910122f9d0069" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -28,15 +137,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "cidr.known.project.marker": "true",
-    "last_opened_file_path": "/Users/sergejmehonosin/AndroidStudioProjects/Jupiter-0.1-Android-developer/lesson_25"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/sergejmehonosin/AndroidStudioProjects/Jupiter-0.1-Android-developer/lesson_25&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="app" type="AndroidRunConfigurationType" factoryName="Android App">
       <module name="My_Application.app.main" />
