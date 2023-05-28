@@ -28,6 +28,9 @@ class ForegroundDownloadService() : Service() {
     // метод жц сервиса, вызывается при первом запуске сервиса
     override fun onCreate() {
         super.onCreate()
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel()
+        }
         Log.d("MyTest", "onCreate from ${Thread.currentThread().name}")
     }
 
@@ -40,10 +43,6 @@ class ForegroundDownloadService() : Service() {
     }
 
     private fun downloadFile() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            createNotificationChannel(CHANNEL_ID, CHANNEL_NAME)
-        }
-
         val notificationManagerCompat = NotificationManagerCompat.from(this)
         // стартует оповещение для нашего сервиса
         // на вход принимает индификатор оповещения и само оповещение
@@ -127,11 +126,11 @@ class ForegroundDownloadService() : Service() {
      * Метод для создания канала, необходим начиная с Api 26
      */
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(channelId: String, channelName: String): String {
-        val chan = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_NONE)
+    private fun createNotificationChannel() {
+        val chan =
+            NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_NONE)
         val service = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         service.createNotificationChannel(chan)
-        return channelId
     }
 
     companion object {
